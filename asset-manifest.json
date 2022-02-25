@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/website-tws/static/css/main.e6683fb3.chunk.css",
+    "main.js": "/website-tws/static/js/main.f68168de.chunk.js",
+    "main.js.map": "/website-tws/static/js/main.f68168de.chunk.js.map",
+    "runtime-main.js": "/website-tws/static/js/runtime-main.4bcab6fb.js",
+    "runtime-main.js.map": "/website-tws/static/js/runtime-main.4bcab6fb.js.map",
+    "static/js/2.f9dc6654.chunk.js": "/website-tws/static/js/2.f9dc6654.chunk.js",
+    "static/js/2.f9dc6654.chunk.js.map": "/website-tws/static/js/2.f9dc6654.chunk.js.map",
+    "static/js/3.d5831afe.chunk.js": "/website-tws/static/js/3.d5831afe.chunk.js",
+    "static/js/3.d5831afe.chunk.js.map": "/website-tws/static/js/3.d5831afe.chunk.js.map",
+    "index.html": "/website-tws/index.html",
+    "static/css/main.e6683fb3.chunk.css.map": "/website-tws/static/css/main.e6683fb3.chunk.css.map",
+    "static/js/2.f9dc6654.chunk.js.LICENSE.txt": "/website-tws/static/js/2.f9dc6654.chunk.js.LICENSE.txt",
+    "static/js/3.d5831afe.chunk.js.LICENSE.txt": "/website-tws/static/js/3.d5831afe.chunk.js.LICENSE.txt",
+    "static/media/background-dark.7ce41431.jpeg": "/website-tws/static/media/background-dark.7ce41431.jpeg",
+    "static/media/dondadamixtape.7803057f.mp3": "/website-tws/static/media/dondadamixtape.7803057f.mp3",
+    "static/media/home_tws.94b5be87.mp4": "/website-tws/static/media/home_tws.94b5be87.mp4",
+    "static/media/logo.35c16ca2.svg": "/website-tws/static/media/logo.35c16ca2.svg",
+    "static/media/speaker_white.13acb277.ico": "/website-tws/static/media/speaker_white.13acb277.ico"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4bcab6fb.js",
+    "static/js/2.f9dc6654.chunk.js",
+    "static/css/main.e6683fb3.chunk.css",
+    "static/js/main.f68168de.chunk.js"
+  ]
+}
