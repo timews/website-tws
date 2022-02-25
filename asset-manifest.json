@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/website-tws/static/css/main.e6683fb3.chunk.css",
-    "main.js": "/website-tws/static/js/main.443f6733.chunk.js",
-    "main.js.map": "/website-tws/static/js/main.443f6733.chunk.js.map",
+    "main.js": "/website-tws/static/js/main.ab671d79.chunk.js",
+    "main.js.map": "/website-tws/static/js/main.ab671d79.chunk.js.map",
     "runtime-main.js": "/website-tws/static/js/runtime-main.4bcab6fb.js",
     "runtime-main.js.map": "/website-tws/static/js/runtime-main.4bcab6fb.js.map",
     "static/js/2.f9dc6654.chunk.js": "/website-tws/static/js/2.f9dc6654.chunk.js",
@@ -13,7 +13,7 @@
     "static/css/main.e6683fb3.chunk.css.map": "/website-tws/static/css/main.e6683fb3.chunk.css.map",
     "static/js/2.f9dc6654.chunk.js.LICENSE.txt": "/website-tws/static/js/2.f9dc6654.chunk.js.LICENSE.txt",
     "static/js/3.d5831afe.chunk.js.LICENSE.txt": "/website-tws/static/js/3.d5831afe.chunk.js.LICENSE.txt",
-    "static/media/background-dark.7ce41431.jpeg": "/website-tws/static/media/background-dark.7ce41431.jpeg",
+    "static/media/background-dark.0b4b3067.jpeg": "/website-tws/static/media/background-dark.0b4b3067.jpeg",
     "static/media/dondadamixtape.7803057f.mp3": "/website-tws/static/media/dondadamixtape.7803057f.mp3",
     "static/media/home_tws.94b5be87.mp4": "/website-tws/static/media/home_tws.94b5be87.mp4",
     "static/media/logo.35c16ca2.svg": "/website-tws/static/media/logo.35c16ca2.svg",
@@ -23,6 +23,6 @@
     "static/js/runtime-main.4bcab6fb.js",
     "static/js/2.f9dc6654.chunk.js",
     "static/css/main.e6683fb3.chunk.css",
-    "static/js/main.443f6733.chunk.js"
+    "static/js/main.ab671d79.chunk.js"
   ]
 }
