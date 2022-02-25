@@ -137,7 +137,7 @@ function Home() {
                     <ContentWindow> 
                     <div id="twitch-embed">
                       <iframe title="livetwitch" 
-                        src="https://player.twitch.tv/?channel=otplol_&parent=https://timews.github.io/website-tws/" 
+                        src="https://player.twitch.tv/?channel=otplol_&parent=timews.github.io" 
                         frameBorder="0" allowFullScreen={true} scrolling="no" 
                         height="350" width="620">
                       </iframe>
@@ -155,7 +155,7 @@ function Home() {
               <div id="twitch-embed-chat">
                 <iframe title="chattwitch"
                   id="chat_embed"
-                  src="https://www.twitch.tv/embed/otplol_/chat?parent=https://timews.github.io/website-tws/&darkpopout"
+                  src="https://www.twitch.tv/embed/otplol_/chat?parent=timews.github.io&darkpopout"
                   height="500"
                   width="375">
                 </iframe>
