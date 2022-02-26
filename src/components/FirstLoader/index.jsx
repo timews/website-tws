@@ -205,7 +205,7 @@ function Test(){
 
             <i>./app/javascript/common/components/Terminal.js</i> 2.42 kB {0} {1} <strong>[built]</strong>
 
-
+			서울에 본사를 둔 한국 회사입니다
 
     <b>Welcome To Time Well Spent Terminal!</b> (v 0.1.29)
         <i>${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}</i>
