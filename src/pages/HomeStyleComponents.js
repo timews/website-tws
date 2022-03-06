@@ -98,7 +98,7 @@ export const WindowTvChat = styled(Window)`
 `
 
 export const WindowMain = styled(Window)`
-    top:200px;
+    top:100px;
     left:155px;
     height: 510px;
     width: 590px;
