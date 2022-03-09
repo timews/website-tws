@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, {useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 
 const PomodoroWindow = styled.div`
     display:flex;
@@ -32,49 +32,58 @@ const Controls = styled.button`
 `
 
 const Pomodoro = () => {
+
     const[minutes, setMinutes] = useState(25);
     const[seconds, setSeconds] = useState(0);
     const[displayMessage, setDisplayMessage] = useState(false);
+    const[pause, setPause] = useState(false);
+
+    const intervalRef = useRef(null)
 
     useEffect(() => {
-        let interval = setInterval(() => {
-            clearInterval(interval);
+        intervalRef.current = setInterval(() => {
+            if(pause){
+                return;
+            }
             if(seconds === 0) {
                 if(minutes !==0) {
                     setSeconds(59);
-                    setMinutes(minutes - 1);
+                    setMinutes(prevState => prevState - 1);
                 } else {
-                    let minutes = displayMessage ? 24 : 4;
-                    let seconds = 59;
-
-                    setSeconds(seconds);
-                    setMinutes(minutes);
+                    // let minutes = displayMessage ? 24 : 4;
+                    // let seconds = 59;
+                    displayMessage ? setMinutes(24): setMinutes(4);
+                    setMinutes(25);
                     setDisplayMessage(!displayMessage);
                 }
             } else {
-                setSeconds(seconds - 1);
+                setSeconds(prevState => prevState - 1);
             }
         }, 1000)
-    }, [seconds,minutes,displayMessage]);
+        return () => clearInterval(intervalRef.current)
+    }, [minutes, seconds, displayMessage, pause]);
 
-    // function resetSession(){
-    //     clearInterval(interval);
-    //     let minutes = 24
-    //     let seconds = 59;
+    function resetSession(){
+        let minutes = 25
+        let seconds = 0;
 
-    //     setSeconds(seconds);
-    //     setMinutes(minutes);
-    //     setDisplayMessage(false);
-    // }
+        setSeconds(seconds);
+        setMinutes(minutes);
+        setDisplayMessage(false);
+        clearInterval(intervalRef.current);
+        intervalRef.current = null
+    }
 
-    // function resetBreak(){
-    //     let minutes = 4
-    //     let seconds = 59;
+    function resetBreak(){
+        let minutes = 5
+        let seconds = 0;
 
-    //     setSeconds(seconds);
-    //     setMinutes(minutes);
-    //     setDisplayMessage(true);
-    // }
+        setSeconds(seconds);
+        setMinutes(minutes);
+        setDisplayMessage(true);
+        clearInterval(intervalRef.current);
+        intervalRef.current = null
+    }
 
     const timerMinutes = minutes < 10 ? `0${minutes}`: minutes;
     const timerSeconds = seconds < 10 ? `0${seconds}`: seconds;
@@ -87,8 +96,9 @@ const Pomodoro = () => {
                         :<MessageLabel>On progress..</MessageLabel> }
                 </Message>
                 <Timer>{timerMinutes}:{timerSeconds}</Timer>
-                <Controls label="New session" >New session</Controls>
-                <Controls label="Break time" >Break time</Controls>
+                <Controls label="New session" onClick={resetSession} >New session</Controls>
+                <Controls label="Break time" onClick={resetBreak} >Break time</Controls>
+                <Controls label="PlayPause" onClick={() => setPause(prevState => !prevState)} >{pause ? <span>Pause</span>:<span>Play</span>}</Controls>
             </PomodoroWrapper>
         </PomodoroWindow>
     );
