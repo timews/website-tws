@@ -50,8 +50,6 @@ const Pomodoro = () => {
                     setSeconds(59);
                     setMinutes(prevState => prevState - 1);
                 } else {
-                    // let minutes = displayMessage ? 24 : 4;
-                    // let seconds = 59;
                     displayMessage ? setMinutes(24): setMinutes(4);
                     setMinutes(25);
                     setDisplayMessage(!displayMessage);
