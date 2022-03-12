@@ -391,7 +391,7 @@ function Home() {
               <CloseIconWindow onClick={()=>setShow({...show, insta:false})}/>
               <strong><HeaderWindow>Insta</HeaderWindow></strong>
               <ContentWindow>
-                <iframe title="instagram" width="320" height="440" src="https://www.instagram.com/p/Cah9ERBPu7Y/embed" frameborder="0"></iframe>
+                <iframe title="instagram" width="320" height="440" src="" frameborder="0"></iframe>
               </ContentWindow>
             </WindowInsta>
           </Draggable> 

@@ -39,6 +39,7 @@ const ButtonHomeNav = styled.button`
     display:flex;
     align-items:center;
     justify-content: center;
+    cursor:pointer;
     @media ${device.mobileL} {
         padding-left: 0px;
         padding-right: 0px;
@@ -69,6 +70,8 @@ const HomeNavOptions = styled.button`
     display:flex;
     align-items:center;
     justify-content: center;
+
+    cursor:pointer;
 
     &:nth-child(1){
         border-top: 1px solid #343354;
@@ -113,6 +116,8 @@ const InfoNavVolume = styled(InfoNav)`
     border-right: 2px solid #343354;
     grid-column:3/4;
     grid-row:1;
+
+    cursor:pointer;
 `
 
 const InfoNavVolumeIcon = styled.img`
@@ -129,6 +134,7 @@ const VolumeExtension = styled.div`
     height:100%;
     grid-column:3/4;
     grid-row:2/6;
+    cursor:grab;
 `
 
 const InfoNavTime = styled(InfoNav)`

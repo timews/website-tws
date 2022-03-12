@@ -41,6 +41,8 @@ export const Icon = styled.div`
   align-items:center;
   text-align: center;
   justify-content: center;
+
+  cursor:pointer;
 `
 
 export const IconTxtDesktop = styled.span`
@@ -78,9 +80,14 @@ export const HeaderWindow = styled.div`
   display:flex;
   align-items:center;
   justify-content: center;
+
+  cursor: grab;
 `
 
 export const CloseIconWindow = styled.button`
+  all: unset;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   height: 13px;
   width: 13px;
   background-color: #FF6347;
@@ -89,6 +96,8 @@ export const CloseIconWindow = styled.button`
   position:absolute;
   top:5px;
   left:7.5px;
+
+  cursor:pointer;
 `
 
 export const Window = styled.div`
@@ -314,6 +323,9 @@ export const MainButtons = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor:pointer;
   @media ${device.mobileL} {
     grid-row:auto;
   }
