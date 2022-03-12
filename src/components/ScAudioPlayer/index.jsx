@@ -27,6 +27,7 @@ const ScAudioPlayer = ({playerState, setPlayerState, volume}) => {
 
     function handleDuration(dur){
         setPlayerState({...playerState, duration:dur})
+        console.log(dur)
     }
 
     function handleEnded(){
@@ -35,7 +36,7 @@ const ScAudioPlayer = ({playerState, setPlayerState, volume}) => {
 
     return(
         <div>
-            <ScReactPlayer 
+            <ScReactPlayer key={playerState.scUrl}
                 style={{display:'none'}} 
                 url={playerState.scUrl}
                 playing={playerState.playing} 

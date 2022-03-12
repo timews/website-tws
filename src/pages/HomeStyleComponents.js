@@ -1,5 +1,6 @@
 import styled, {keyframes} from 'styled-components'
 import wallPaper from '../assets/backgrounds/background-dark.jpeg'
+import { device } from '../utils/style/device';
 
 export const Desktop = styled.div`
   background-color:black;
@@ -30,7 +31,6 @@ export const IconDeskManager = styled.div`
   grid-template-rows: repeat(autofit, minmax(70px, 70px));
   gap:10px;
 `
-
 
 export const Icon = styled.div`
   width:75px;
@@ -68,69 +68,10 @@ export const IconDustBin = styled(Icon)`
   bottom:10px;
 `
 
-export const Window = styled.div`
-  height:350px;
-  width:350px;
-
-  position:absolute;
-  overflow:hidden;
-
-  background-color: #f1f1f1;
-  border: 3px solid #000;
-  border-radius:10px;
-
-  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-  box-shadow: 5px 5px 30px 1px rgba(0, 0, 255, .25);
-`
-
-export const WindowTV = styled(Window)`
-    height: 375px;
-    width: 620px;
-
-    z-index: 10;
-`
-
-export const WindowTvChat = styled(Window)`
-    height: 529px;
-    width: 379px;
-
-    z-index:11;
-`
-
-export const WindowMain = styled(Window)`
-    top:100px;
-    left:155px;
-    height: 510px;
-    width: 590px;
-    box-shadow: 5px 5px 30px 1px rgba(0, 0, 255, .3);
-`
-
-export const WindowMixtape = styled(Window)`
-    height:300px;
-    width:200px;
-    resize:both;
-    overflow:hidden;
-`
-
-export const WindowAudioPlayer = styled(Window)`
-    height: 200px;
-    width:400px;
-`
-
-export const WindowPomodoro = styled(Window)`
-    height: 300px;
-    width:300px;
-`
-
-
-//rajouter une taille minimum des fenetres -> empecher des resizes trop moches
-//remplacer le position: absolute par une fonction z-index
-
 export const HeaderWindow = styled.div`
-  z-index:1;
-  
   height:25px;
   width:100%;
+
   background-color: #000;
   color: #fff;
 
@@ -148,7 +89,26 @@ export const CloseIconWindow = styled.button`
   position:absolute;
   top:5px;
   left:7.5px;
-  z-index:2;
+`
+
+export const Window = styled.div`
+  height:350px;
+  width:350px;
+
+  position:absolute;
+  overflow:hidden;
+
+  background-color: #000;
+  border: 3px solid #000;
+  border-radius:10px;
+
+  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+  box-shadow: 5px 5px 30px 1px rgba(0, 0, 255, .25);
+
+  @media ${device.mobileL} {
+    height:200px;
+    width:300px;
+  }
 `
 
 export const ContentWindow = styled.div`
@@ -161,6 +121,156 @@ export const ContentWindow = styled.div`
   border-bottom-right-radius:4px;
 `
 
+export const HeaderWindowTv = styled(HeaderWindow)`
+  position:absolute;
+  opacity:0;
+  z-index:11;
+
+  @media ${device.mobileL} {
+    height:15px;
+    opacity:1;
+    font-size:10px;
+  }
+`
+
+export const CloseIconWindowTv = styled(CloseIconWindow)`
+  position:absolute;
+  opacity:0;
+  z-index:12;
+
+  @media ${device.mobileL} {
+    opacity:1;
+  }
+`
+
+export const WindowTv = styled(Window)`
+    height: 375px;
+    width: 620px;
+    min-height: 149px;
+    min-width: 265px;
+
+    resize:both;
+    overflow:hidden;
+
+    z-index: 10;
+
+    top:2.5vh;
+
+    &:hover ${HeaderWindowTv}{
+      opacity:1;
+    }
+
+    &:hover ${CloseIconWindowTv}{
+      opacity:1;
+    }
+
+    @media ${device.mobileL} {
+      height:200px;
+      width:300px;
+    }
+`
+
+export const TwitchEmbed = styled.div`
+  height:100%;
+  width:100%;
+  zIndex:9;
+  margin-top:15px;
+`
+
+export const HeaderWindowTvChat = styled(HeaderWindow)`
+  position:absolute;
+  z-index:11;
+`
+
+export const CloseIconWindowTvChat = styled(CloseIconWindow)`
+  position:absolute;
+  z-index:12;
+`
+
+export const WindowTvChat = styled(Window)`
+    height: 500px;
+    width: 350px;
+    min-height: 300px;
+    min-width: 251px;
+
+    resize:both;
+    overflow:hidden;
+
+    z-index:10;
+    
+    top:37vh;
+    left:1px;
+
+    @media ${device.mobileL} {
+      height:370px;
+      width:314px;
+    }
+`
+
+export const WindowMain = styled(Window)`
+    top:100px;
+    left:155px;
+    height: 510px;
+    width: 590px;
+    box-shadow: 5px 5px 30px 1px rgba(0, 0, 255, .3);
+    
+    @media ${device.mobileL} {
+      left:50px;
+      height: 210px;
+      width: 225px;
+    }
+`
+
+export const WindowMixtape = styled(Window)`
+    height:300px;
+    width:190px;
+    min-height:155px;
+    min-width:190px;
+    resize:both;
+    overflow:hidden;
+
+    background-color: #f1f1f1;
+    @media ${device.mobileL} {
+      top:250px;
+    }
+`
+
+export const WindowAudioPlayer = styled(Window)`
+    height: 200px;  
+    width:400px;
+    @media ${device.mobileL} {
+      height: 200px;
+      width:200px;
+      top:250px;
+      left:100px;
+    }
+`
+
+export const WindowRadio = styled(Window)`
+    height: 400px;
+    width:400px;
+    @media ${device.mobileL} {
+      height: 200px;
+      width:200px;
+      top:250px;
+    }
+`
+
+export const WindowPomodoro = styled(Window)`
+    height: 300px;
+    width:300px;
+    background-color: #f1f1f1;
+    top:20vh;
+`
+
+export const WindowInsta = styled(Window)`
+  height:500px;
+  width:500px;
+`
+
+//rajouter une taille minimum des fenetres -> empecher des resizes trop moches
+//remplacer le position: absolute par une fonction z-index
+
 export const MixtapeWindow = styled.div`
   height:100%;
   width:100%;
@@ -171,7 +281,7 @@ export const MixtapeWindow = styled.div`
   grid-template-rows: repeat(auto-fit, minmax(70px, 70px));
   gap:10px;
   color:black;
-  overflow: scroll;
+  overflow:scroll;
 `
 
 export const HomeWindow = styled.div`
@@ -180,12 +290,23 @@ export const HomeWindow = styled.div`
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-gap:1px;
+
+  @media ${device.mobileL} {
+    display:grid;
+    grid-template-columns: repeat(3, minmax(75px, 75px));
+    grid-template-rows: 1fr 1fr 30px;
+    grid-gap:1px;
+  }
 `
 
 export const MainImg = styled.video`
   width:100%;
   grid-column: 1 / 6;
   grid-row: 1 / 5; 
+
+  @media ${device.mobileL} {
+    display:none;
+  }
 `
 
 export const MainButtons = styled.button`
@@ -193,6 +314,9 @@ export const MainButtons = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media ${device.mobileL} {
+    grid-row:auto;
+  }
 `
 
 const textflicker = keyframes`
@@ -218,4 +342,3 @@ export const ContentWindowAbout = styled.div`
   animation-iteration-count: infinite;
   animation-direction: alternate;
 `
-
