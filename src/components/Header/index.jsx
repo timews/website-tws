@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {useDate} from '../../utils/hooks'
 import {useState} from 'react'
 // import Volume from '../../components/Volume'
+import { device } from '../../utils/style/device';
 
 const NavContainer = styled.nav`
     position:relative;
@@ -17,6 +18,12 @@ const NavContainer = styled.nav`
     display:grid;
     grid-template-columns: 150px 1fr 32px 62px 116px;
     grid-template-rows: repeat(7, 26px);
+
+    @media ${device.mobileL} {
+        display:grid;
+        grid-template-columns: 130px 1fr 32px 0px 116px;
+        grid-template-rows: repeat(7, 26px);
+    }
 `
 
 const HomeLogo = styled.img`
@@ -32,6 +39,10 @@ const ButtonHomeNav = styled.button`
     display:flex;
     align-items:center;
     justify-content: center;
+    @media ${device.mobileL} {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
 `
 
 const SpanButtonHomeNav = styled.span`
@@ -123,6 +134,9 @@ const VolumeExtension = styled.div`
 const InfoNavTime = styled(InfoNav)`
     grid-column:4/5;
     grid-row:1;
+    @media ${device.mobileL} {
+        display:none;
+    }
 `
 
 const InfoNavDate = styled(InfoNav)`

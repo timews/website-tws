@@ -9,9 +9,11 @@ import FirstLoader from '../components/FirstLoader'
 
 import {Desktop, Icon, IconCenterImg, IconImg, IconTxtDesktop, MainImg,
     Window, HomeWindow, CloseIconWindow, HeaderWindow, IconTxtWindows,
-    ContentWindow, MixtapeWindow, WindowTV, WindowTvChat, WindowMain,
-    WindowMixtape, WindowAudioPlayer, WindowPomodoro, MainButtons,
-    IconDustBin, IconDeskManager, ContentWindowAbout} 
+    ContentWindow, MixtapeWindow, HeaderWindowTv, CloseIconWindowTv,
+    WindowTv, HeaderWindowTvChat, CloseIconWindowTvChat, WindowTvChat,
+    WindowMain, WindowMixtape, WindowAudioPlayer, WindowPomodoro, 
+    MainButtons, IconDustBin, IconDeskManager, ContentWindowAbout, 
+    WindowRadio, WindowInsta, TwitchEmbed} 
     from './HomeStyleComponents'
 
 import {icone1, icone2, icone3, icone4, icone5, icone6, 
@@ -36,7 +38,7 @@ function Home() {
     mixtape:false,
     pomodoro:false,
     audioPlayer:false,
-    radio:false,
+    radio:true,
     tv:false,
     tvChat:false,
     newsletter:false,
@@ -53,8 +55,17 @@ function Home() {
     setVolume(parseFloat(e.target.value))
   }
 
-  const[playerState,setPlayerState]=useState({
+  const[audioState,setAudioState]=useState({
     scUrl:'',
+    playing:false,
+    volume:0.8,
+    played:0,
+    duration:0,
+    seeking:false
+  })
+
+  const[radioState,setRadioState]=useState({
+    scUrl:'https://soundcloud.com/hanriverlove/sets/r-lofi-beat',
     playing:false,
     volume:0.8,
     played:0,
@@ -66,12 +77,20 @@ function Home() {
     if(!show.audioPlayer){
       setShow({...show, audioPlayer:true})
     }
-    setPlayerState({...playerState, scUrl:url, played: 0})
+    setAudioState({...audioState, scUrl:url, played: 0})
+  }
+
+  function openAndLoadRadio(url){
+    if(!show.radio){
+      setShow({...show, radio:true})
+    }
+    setRadioState({...radioState, scUrl:url})
   }
 
   function preLoad(){
     setLoaded(false);
     play();
+    setRadioState({...radioState, playing:true})
   }
 
   return (
@@ -92,7 +111,7 @@ function Home() {
           <IconCenterImg><IconImg src={icone1} alt='icone' /></IconCenterImg>
           <IconTxtDesktop>Instagram</IconTxtDesktop>
         </Icon>
-        <Icon onClick={()=>setShow({...show, radio:true})}>
+        <Icon onClick={() => openAndLoadRadio('https://soundcloud.com/hanriverlove/sets/r-lofi-beat')}>
           <IconCenterImg><IconImg src={icone6} alt='icone' /></IconCenterImg>
           <IconTxtDesktop>RadioFM</IconTxtDesktop>
         </Icon>
@@ -131,44 +150,45 @@ function Home() {
         <IconTxtDesktop>DustBin</IconTxtDesktop>
       </IconDustBin>
       {show.tv? <Draggable handle="strong" bounds="body">
-                  <WindowTV>
-                    <CloseIconWindow onClick={()=>setShow({...show, tv:false, tvChat:false})}/>
-                    <strong><HeaderWindow>TWS TV - 텔레비전</HeaderWindow></strong>
+                  <WindowTv>
+                    <CloseIconWindowTv onClick={()=>setShow({...show, tv:false, tvChat:false})}/>
+                    <strong><HeaderWindowTv>TWS TV - 텔레비전</HeaderWindowTv></strong>
                     <ContentWindow> 
-                    <div id="twitch-embed">
+                    <TwitchEmbed id="twitch-embed">
                       <iframe title="livetwitch" 
                         src="https://player.twitch.tv/?channel=otplol_&parent=timews.github.io" 
+                        // src="https://player.twitch.tv/?channel=otplol_&parent=localhost" 
                         frameBorder="0" allowFullScreen={true} scrolling="no" 
-                        height="350" width="620">
+                        height="100%" width="100%">
                       </iframe>
-                    </div>
+                    </TwitchEmbed>
                     </ContentWindow>
-                  </WindowTV>
+                  </WindowTv>
                 </Draggable>
                 :null
       }
       {show.tvChat? <Draggable handle="strong" bounds="body">
             <WindowTvChat>
-              <CloseIconWindow onClick={()=>setShow({...show, tvChat:false})}/>
-              <strong><HeaderWindow>TWS Chat</HeaderWindow></strong>
-              <ContentWindow> 
-              <div id="twitch-embed-chat">
-                <iframe title="chattwitch"
-                  id="chat_embed"
-                  src="https://www.twitch.tv/embed/otplol_/chat?parent=timews.github.io&darkpopout"
-                  height="500"
-                  width="375">
-                </iframe>
-              </div>
+              <CloseIconWindowTvChat onClick={()=>setShow({...show, tvChat:false})}/>
+              <strong><HeaderWindowTvChat>TWS Chat</HeaderWindowTvChat></strong>
+              <ContentWindow style={{marginTop:"25px", height:"100%"}}> 
+                <div id="twitch-embed-chat" style={{height:"100%", width:"100%"}}>
+                  <iframe title="chattwitch"
+                    id="chat_embed"
+                    src="https://www.twitch.tv/embed/otplol_/chat?parent=timews.github.io&darkpopout"
+                    // src="https://www.twitch.tv/embed/otplol_/chat?parent=localhost&darkpopout"
+                    height="94%"
+                    width="99.2%">
+                  </iframe>
+                </div>
               </ContentWindow>
             </WindowTvChat>
           </Draggable>
                 :null
       }
-      {/*<audio controls autoPlay><source src={testaudio} type="audio/mpeg"></source></audio>*/}
       {show.mixtape? <Draggable handle="strong" bounds="body">
                 <WindowMixtape>
-                  <div style={{position:"sticky", top:"0px"}}>
+                  <div style={{position:"sticky", top:"0px", width:"100%"}}>
                     <CloseIconWindow onClick={()=>setShow({...show, mixtape:false})}/>
                     <strong><HeaderWindow>Mixtapes</HeaderWindow></strong>
                   </div>
@@ -182,7 +202,7 @@ function Home() {
                         <IconCenterImg><IconImg src={icon_cd} alt='icon' /></IconCenterImg>
                         <IconTxtWindows>Don Dada</IconTxtWindows>
                       </Icon>
-                      <Icon onClick={() => openAndLoad('https://soundcloud.com/tolsk/lofi-gaming-chill?si=76fec7befa3949aaabfe27037d3e3b3b')}>                       
+                      <Icon onClick={() => openAndLoad('https://soundcloud.com/dzinc/1-hour-studio-ghibli-lofi-hip-hop-mix')}>                       
                         <IconCenterImg><IconImg src={icon_cd} alt='icon' /></IconCenterImg>
                         <IconTxtWindows>Alex</IconTxtWindows>
                       </Icon>
@@ -282,7 +302,7 @@ function Home() {
                   <CloseIconWindow onClick={()=>setShow({...show, audioPlayer:false})}/>
                   <strong><HeaderWindow>AudioPlayer</HeaderWindow></strong>
                   <ContentWindow>
-                    <ScAudioPlayer playerState={playerState} setPlayerState={setPlayerState} volume={volume}/>
+                    <ScAudioPlayer playerState={audioState} setPlayerState={setAudioState} volume={volume}/>
                     <br/>
                     <input type='range' min={0} max={1} step='any'
                       value={volume} 
@@ -294,13 +314,18 @@ function Home() {
             :null
       }
       {show.radio? <Draggable handle="strong" bounds="body">
-                <Window>
+                <WindowRadio>
                   <CloseIconWindow onClick={()=>setShow({...show, radio:false})}/>
                   <strong><HeaderWindow>RADIO FM</HeaderWindow></strong>
                   <ContentWindow>
-                    Radio Tracks
+                    <ScAudioPlayer playerState={radioState} setPlayerState={setRadioState} volume={volume}/>
+                      <br/>
+                      <input type='range' min={0} max={1} step='any'
+                        value={volume} 
+                        onChange={handleVolumeChange} 
+                      />
                   </ContentWindow>
-                </Window>
+                </WindowRadio>
               </Draggable> 
             :null
       }
@@ -359,6 +384,18 @@ function Home() {
                 </Window>
               </Draggable> 
             :null
+      }
+      {show.insta?
+          <Draggable handle="strong" bounds="body">
+            <WindowInsta>
+              <CloseIconWindow onClick={()=>setShow({...show, insta:false})}/>
+              <strong><HeaderWindow>Insta</HeaderWindow></strong>
+              <ContentWindow>
+                <iframe title="instagram" width="320" height="440" src="https://www.instagram.com/p/Cah9ERBPu7Y/embed" frameborder="0"></iframe>
+              </ContentWindow>
+            </WindowInsta>
+          </Draggable> 
+          :null 
       }
     </Desktop>
     </>
