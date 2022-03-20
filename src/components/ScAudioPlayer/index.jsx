@@ -25,13 +25,17 @@ const ScAudioPlayer = ({playerState, setPlayerState, volume}) => {
         }
     }
 
-    function handleDuration(dur){
+    const handleDuration = (dur) => {
         setPlayerState({...playerState, duration:dur})
         console.log(dur)
     }
 
-    function handleEnded(){
+    const handleEnded = () => {
         setPlayerState({...playerState, playing:false})
+    }
+
+    const handlePlayPause = () => {
+        setPlayerState({...playerState, playing:!playerState.playing, duration:playerState.duration})
     }
 
     return(
@@ -45,7 +49,10 @@ const ScAudioPlayer = ({playerState, setPlayerState, volume}) => {
                 onDuration={handleDuration}
                 onEnded={handleEnded}
                 ref={player}/>
-            <button onClick={()=>setPlayerState({...playerState, playing:!playerState.playing, duration:playerState.duration})}>PLAY/PAUSE</button>
+            <button style={{cursor:"pointer"}}
+                    onClick={handlePlayPause}>
+                    PLAY/PAUSE
+            </button>
             <Duration seconds={playerState.duration * playerState.played}/>
             <input
                 type='range' min={0} max={0.999999} step='any'
@@ -53,6 +60,7 @@ const ScAudioPlayer = ({playerState, setPlayerState, volume}) => {
                 onMouseDown={handleSeekMouseDown}
                 onChange={handleSeekChange}
                 onMouseUp={handleSeekMouseUp}
+                style={{cursor:"grab"}}
             />
             <Duration seconds={playerState.duration}/>
         </div> 

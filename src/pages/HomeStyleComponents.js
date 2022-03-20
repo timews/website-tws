@@ -41,6 +41,8 @@ export const Icon = styled.div`
   align-items:center;
   text-align: center;
   justify-content: center;
+
+  cursor:pointer;
 `
 
 export const IconTxtDesktop = styled.span`
@@ -78,6 +80,8 @@ export const HeaderWindow = styled.div`
   display:flex;
   align-items:center;
   justify-content: center;
+
+  cursor:grab;
 `
 
 export const CloseIconWindow = styled.button`
@@ -89,6 +93,7 @@ export const CloseIconWindow = styled.button`
   position:absolute;
   top:5px;
   left:7.5px;
+  cursor:pointer;
 `
 
 export const Window = styled.div`
@@ -105,7 +110,7 @@ export const Window = styled.div`
   border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
   box-shadow: 5px 5px 30px 1px rgba(0, 0, 255, .25);
 
-  @media ${device.mobileL} {
+  @media ${device.tablet} {
     height:200px;
     width:300px;
   }
@@ -126,7 +131,7 @@ export const HeaderWindowTv = styled(HeaderWindow)`
   opacity:0;
   z-index:11;
 
-  @media ${device.mobileL} {
+  @media ${device.tablet} {
     height:15px;
     opacity:1;
     font-size:10px;
@@ -138,7 +143,7 @@ export const CloseIconWindowTv = styled(CloseIconWindow)`
   opacity:0;
   z-index:12;
 
-  @media ${device.mobileL} {
+  @media ${device.tablet} {
     opacity:1;
   }
 `
@@ -164,7 +169,7 @@ export const WindowTv = styled(Window)`
       opacity:1;
     }
 
-    @media ${device.mobileL} {
+    @media ${device.tablet} {
       height:200px;
       width:300px;
     }
@@ -173,7 +178,7 @@ export const WindowTv = styled(Window)`
 export const TwitchEmbed = styled.div`
   height:100%;
   width:100%;
-  zIndex:9;
+  z-index:9;
   margin-top:15px;
 `
 
@@ -201,7 +206,7 @@ export const WindowTvChat = styled(Window)`
     top:37vh;
     left:1px;
 
-    @media ${device.mobileL} {
+    @media ${device.tablet} {
       height:370px;
       width:314px;
     }
@@ -209,16 +214,29 @@ export const WindowTvChat = styled(Window)`
 
 export const WindowMain = styled(Window)`
     top:100px;
-    left:155px;
+    right:25%;
     height: 510px;
     width: 590px;
     box-shadow: 5px 5px 30px 1px rgba(0, 0, 255, .3);
     
-    @media ${device.mobileL} {
-      left:50px;
-      height: 210px;
-      width: 225px;
+    @media ${device.tablet} {
+      right:0 !important;
+      height: 210px !important;
+      width: 225px !important;
     }
+
+    @media ${device.laptop} {
+      height: 410px;
+      width: 470px;
+      right:15%;
+    }
+
+    @media ${device.laptopL} {
+      height: 410px;
+      width: 470px;
+    }
+
+
 `
 
 export const WindowMixtape = styled(Window)`
@@ -230,7 +248,7 @@ export const WindowMixtape = styled(Window)`
     overflow:hidden;
 
     background-color: #f1f1f1;
-    @media ${device.mobileL} {
+    @media ${device.tablet} {
       top:250px;
     }
 `
@@ -238,7 +256,7 @@ export const WindowMixtape = styled(Window)`
 export const WindowAudioPlayer = styled(Window)`
     height: 200px;  
     width:400px;
-    @media ${device.mobileL} {
+    @media ${device.tablet} {
       height: 200px;
       width:200px;
       top:250px;
@@ -249,7 +267,7 @@ export const WindowAudioPlayer = styled(Window)`
 export const WindowRadio = styled(Window)`
     height: 400px;
     width:400px;
-    @media ${device.mobileL} {
+    @media ${device.tablet} {
       height: 200px;
       width:200px;
       top:250px;
@@ -291,7 +309,7 @@ export const HomeWindow = styled.div`
   grid-template-rows: repeat(5, 1fr);
   grid-gap:1px;
 
-  @media ${device.mobileL} {
+  @media ${device.tablet} {
     display:grid;
     grid-template-columns: repeat(3, minmax(75px, 75px));
     grid-template-rows: 1fr 1fr 30px;
@@ -304,7 +322,7 @@ export const MainImg = styled.video`
   grid-column: 1 / 6;
   grid-row: 1 / 5; 
 
-  @media ${device.mobileL} {
+  @media ${device.tablet} {
     display:none;
   }
 `
@@ -314,9 +332,11 @@ export const MainButtons = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media ${device.mobileL} {
+  @media ${device.tablet} {
     grid-row:auto;
   }
+
+  cursor:pointer;
 `
 
 const textflicker = keyframes`
