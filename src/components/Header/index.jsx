@@ -3,8 +3,8 @@ import speaker from '../../assets/icones/speaker_white.ico'
 import styled from 'styled-components'
 import {useDate} from '../../utils/hooks'
 import {useState} from 'react'
-// import Volume from '../../components/Volume'
 import { device } from '../../utils/style/device';
+import dropDown from '../../assets/icones/dropdown.png'
 
 const NavContainer = styled.nav`
     position:relative;
@@ -26,11 +26,6 @@ const NavContainer = styled.nav`
     }
 `
 
-const HomeLogo = styled.img`
-    height:18px;
-    width:18px;
-`
-
 const ButtonHomeNav = styled.button`
     all: unset;
     border-right: 2px solid #343354;
@@ -44,10 +39,25 @@ const ButtonHomeNav = styled.button`
         padding-left: 0px;
         padding-right: 0px;
     }
+
+    cursor:pointer;
+`
+
+const HomeLogo = styled.img`
+    height:18px;
+    width:18px;
 `
 
 const SpanButtonHomeNav = styled.span`
     padding-left:15px;
+    padding-right:13px;
+`
+
+const HomeIcon = styled.img`
+    width:5px;
+    height:3px;
+    color:white;
+    image-rendering:pixelated;
 `
 
 const HomeNav = styled.div`
@@ -69,13 +79,16 @@ const HomeNavOptions = styled.button`
     border-width:0 2px 2px 2px;
     display:flex;
     align-items:center;
-    justify-content: center;
+    padding-left:10px;
+    // justify-content: center;
 
     cursor:pointer;
 
     &:nth-child(1){
         border-top: 1px solid #343354;
     }
+
+    cursor:pointer;
 `
 
 const SnsNav = styled.div`
@@ -116,7 +129,6 @@ const InfoNavVolume = styled(InfoNav)`
     border-right: 2px solid #343354;
     grid-column:3/4;
     grid-row:1;
-
     cursor:pointer;
 `
 
@@ -130,7 +142,7 @@ const InfoNavVolumeIcon = styled.img`
 const VolumeExtension = styled.div`
     color:white;
     border: 2px solid #343354;
-    background-color:red;
+    background-color:black;
     height:100%;
     grid-column:3/4;
     grid-row:2/6;
@@ -151,26 +163,95 @@ const InfoNavDate = styled(InfoNav)`
     grid-row:1;
 `
 
-function Header({showOption, setShowOption}) {
-    const {date, time} = useDate()
-    const[showVolume,setShowVolume]=useState(false)
-    const[showMenu,setShowMenu] = useState(false)
-    const[showSns,setShowSns] = useState(false)
+const rangeStyles = `
+    background: white;
+    height: 2px;
+`
+
+const thumbStyles = `
+    height:10px;
+    width:10px;
+    background:purple;
+`
+
+
+const VolumeInput = styled.input`
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg); 
+
+    -webkit-appearance: none;
+    -moz-transform-origin: 46px 5px;
+
+    appearance: none;
+    background: transparent;
+    margin-top: 51px;
+    margin-left:-28px;
+    width: 85px;
+    cursor: grab;
+
+    &::-webkit-slider-runnable-track {
+        ${rangeStyles};
+    }
+
+    &::-moz-range-track {
+        ${rangeStyles};
+        width:85px;
+    }
+
+    &::-webkit-slider-thumb{
+        -webkit-appearance: none;
+        margin-top:-4px;
+        ${thumbStyles};
+    }
+
+    &::-moz-range-thumb{
+        border: none;
+        border-radius: 0;
+        ${thumbStyles};
+    }
+
+`
+
+function Header({showOption, setShowOption, volume, handleVolumeChange}) {
+    const {date, time} = useDate();
+
+    const[showNav,setShowNav]=useState({
+        menu:false,
+        volumeNav:false,
+        sns:false
+    });
+
+    const handleNav = (e) => {
+        let tempo = e.currentTarget.id;
+        setShowNav(prevState => ({...prevState, [tempo]: !prevState[tempo] }));
+        console.log(showNav);
+    };
 
     return(
         <NavContainer>
-            <ButtonHomeNav onClick={()=>setShowMenu(!showMenu)} >
+            <ButtonHomeNav id="menu" onClick={handleNav} >
                 <HomeLogo src={logo} alt="TWS"/> 
                 <SpanButtonHomeNav>TIME WS</SpanButtonHomeNav>
+                {showNav.menu? 
+                    <HomeIcon src={dropDown} alt="dropDown" style={{transform:"rotate(180deg)"}}/>
+                    : <HomeIcon src={dropDown} alt="dropDown"/>
+                }
             </ButtonHomeNav>
             <SpaceBetween/>
-            <InfoNavVolume onClick={()=>setShowVolume(!showVolume)}>
+            <InfoNavVolume id="volumeNav" onClick={handleNav}>
                     <InfoNavVolumeIcon src={speaker} alt="vol."/>
             </InfoNavVolume>
             <InfoNavTime>{time}</InfoNavTime>
             <InfoNavDate>{date}</InfoNavDate>
-            {showVolume? <VolumeExtension><span style={{writingMode: "vertical-rl"}}>Volume</span></VolumeExtension>:null}
-            {showMenu? <HomeNav>
+            {showNav.volumeNav? <VolumeExtension><VolumeInput type='range' min={0} max={1} step="any"
+                      value={volume} 
+                      onChange={handleVolumeChange}
+                    />
+                    </VolumeExtension>:null}
+            {showNav.menu? <HomeNav>
                 <HomeNavOptions>
                     Login
                 </HomeNavOptions>
@@ -180,13 +261,17 @@ function Header({showOption, setShowOption}) {
                 <HomeNavOptions onClick={()=>setShowOption({...showOption, contact:true})}>
                     Contact Us
                 </HomeNavOptions>
-                <HomeNavOptions onClick={()=>setShowSns(!showSns)}>
+                <HomeNavOptions id='sns' onClick={handleNav}>
                     Social Media
+                    {showNav.sns?
+                        <HomeIcon src={dropDown} alt="dropDown" style={{transform:"rotate(90deg)", marginLeft:"7px"}}/>
+                        : <HomeIcon src={dropDown} alt="dropDown" style={{transform:"rotate(-90deg)", marginLeft:"7px"}}/>
+                    }
                 </HomeNavOptions>
                 <HomeNavOptions onClick={()=>setShowOption({...showOption, about:true})}>
                     About
                 </HomeNavOptions>
-                {showSns? <SnsNav>
+                {showNav.sns? <SnsNav>
                     <SnsNavOptions>
                         Instagram
                     </SnsNavOptions>

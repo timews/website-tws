@@ -29,6 +29,7 @@ const Timer = styled.div`
 
 const Controls = styled.button`
     margin:1em;
+    cursor:pointer;
 `
 
 const Pomodoro = () => {
