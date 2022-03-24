@@ -6,14 +6,13 @@ export const Desktop = styled.div`
   background-color:black;
   background-image:url(${wallPaper});
   background-size:cover;
-  height:100vh;
-
   padding:10px;
 
   &:before{
     content: " ";
     display: block;
-    position: absolute;
+    position: fixed;
+    height:100%;
     top: 0;
     left: 0;
     bottom: 0;
@@ -270,6 +269,9 @@ export const WindowAudioPlayer = styled(Window)`
 export const WindowRadio = styled(Window)`
     height: 400px;
     width:400px;
+    right:60%;
+    bottom:20%;
+    top:20%;
     @media ${device.tablet} {
       height: 200px;
       width:200px;

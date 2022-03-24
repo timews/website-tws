@@ -13,7 +13,7 @@ const NavContainer = styled.nav`
     border-right: 2px solid #343354;
     font-size:16px;
     font-weight:bold;
-    width:100%;
+    width:100vw;
 
     display:grid;
     grid-template-columns: 150px 1fr 32px 62px 116px;

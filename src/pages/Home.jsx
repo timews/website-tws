@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Draggable from 'react-draggable'
-import useSound from 'use-sound';
+import useSound from 'use-sound'
+import { useEffect } from 'react'
 
 import Header from '../components/Header'
 import Pomodoro from '../components/Pomodoro'
@@ -23,7 +24,37 @@ import {icone1, icone2, icone3, icone4, icone5, icone6,
 import tws_home from '../assets/home_tws.mp4'
 import jingle from '../assets/audios/dondadamixtape.mp3'
 
+function debounce(fn, ms) {
+  let timer;
+  return _ => {
+    clearTimeout(timer);
+    timer = setTimeout(_ => {
+      timer = null;
+      fn.apply(this, arguments);
+    }, ms);
+  };
+}
+
 function Home() {
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth
+  });
+  useEffect(() => {
+    const debouncedHandleResize = debounce(function handleResize() {
+    setDimensions({
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
+    }, 300);
+
+    window.addEventListener("resize", debouncedHandleResize);
+
+    return _ => {
+      window.removeEventListener("resize", debouncedHandleResize);
+    };
+  });
+
   const[loaded,setLoaded]=useState(true);
   const [play] = useSound(jingle)
 
@@ -130,12 +161,12 @@ function Home() {
   return (
     <>
     {loaded? <div style={{position: "absolute",
-        height: "100vh", width: "100%",zIndex: "10000"}} 
+        height:dimensions.height, width:dimensions.width, zIndex: "10000"}} 
         onClick={preLoad}>
           <FirstLoader/>
         </div>:null}
     <Header showOption={showOption} setShowOption={setShowOption} volume={volume} handleVolumeChange={handleVolumeChange}/>
-    <Desktop>
+    <Desktop style={{height:dimensions.height, width:dimensions.width}}>
       <IconDeskManager>
         <Icon onClick={()=>setShow({...show, launcher:true})}>
           <IconCenterImg><IconImg src={icone10} alt='icone' /></IconCenterImg>
