@@ -8,6 +8,7 @@ import icone7 from './icone7.png'
 import icone8 from './icone8.png'
 import icone9 from './icone9.png'
 import icone10 from './icone10.png'
+import icone11 from './icone11.png'
 import icon_cd from './icon_cd.png'
 import icon_dustbin from './icon_dustbin.png'
 
@@ -22,6 +23,7 @@ export {
     icone8,
     icone9,
     icone10,
+    icone11,
     icon_cd,
     icon_dustbin
 }

@@ -146,7 +146,6 @@ const VolumeExtension = styled.div`
     height:100%;
     grid-column:3/4;
     grid-row:2/6;
-    cursor:grab;
 `
 
 const InfoNavTime = styled(InfoNav)`
@@ -212,7 +211,6 @@ const VolumeInput = styled.input`
         border-radius: 0;
         ${thumbStyles};
     }
-
 `
 
 function Header({showOption, setShowOption, volume, handleVolumeChange}) {

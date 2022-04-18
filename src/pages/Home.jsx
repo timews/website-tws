@@ -6,7 +6,9 @@ import { useEffect } from 'react'
 import Header from '../components/Header'
 import Pomodoro from '../components/Pomodoro'
 import ScAudioPlayer from '../components/ScAudioPlayer'
+import ScRadio from '../components/ScRadio'
 import FirstLoader from '../components/FirstLoader'
+import WeatherAPI from '../components/Weather'
 
 import {Desktop, Icon, IconCenterImg, IconImg, IconTxtDesktop, MainImg,
     Window, HomeWindow, CloseIconWindow, HeaderWindow, IconTxtWindows,
@@ -18,7 +20,8 @@ import {Desktop, Icon, IconCenterImg, IconImg, IconTxtDesktop, MainImg,
     from './HomeStyleComponents'
 
 import {icone1, icone2, icone3, icone4, icone5, icone6, 
-    icone7, icone8, icone9, icone10, icon_dustbin, icon_cd} 
+    icone7, icone8, icone9, icone10, icone11,
+    icon_dustbin, icon_cd} 
     from '../assets/icones/index.jsx'
 
 import tws_home from '../assets/home_tws.mp4'
@@ -36,6 +39,8 @@ function debounce(fn, ms) {
 }
 
 function Home() {
+
+  // Resizing
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
     width: window.innerWidth
@@ -55,9 +60,7 @@ function Home() {
     };
   });
 
-  const[loaded,setLoaded]=useState(true);
-  const [play] = useSound(jingle)
-
+  // Management of windows
   const[showOption,setShowOption]=useState({
     about:false,
     contact:false,
@@ -77,6 +80,7 @@ function Home() {
     insta:false,
     store:false,
     discord:false,
+    meteo:false,
     dustbin:false
   })
 
@@ -94,7 +98,8 @@ function Home() {
     insta:"10",
     store:"11",
     discord:"12",
-    dustbin:"13"
+    dustbin:"13",
+    meteo:"14"
   })
 
   const handleIndex = (e) => {
@@ -114,6 +119,7 @@ function Home() {
     handleIndex(e)
   }
 
+  // Management of audio player & radio 
   const[volume,setVolume]=useState(0.8)
 
   const handleVolumeChange = (e) => {
@@ -137,7 +143,7 @@ function Home() {
     duration:0,
     seeking:false
   })
-
+ 
   const openAndLoad = (url) => {
     if(!show.audioPlayer){
       setShow({...show, audioPlayer:true})
@@ -151,6 +157,10 @@ function Home() {
     }
     setRadioState({...radioState, scUrl:url})
   }
+
+  // Preloader
+  const[loaded,setLoaded]=useState(true)
+  const [play] = useSound(jingle)
 
   const preLoad = () => {
     setLoaded(false);
@@ -200,13 +210,17 @@ function Home() {
           <IconCenterImg><IconImg src={icone7} alt='icone' /></IconCenterImg>
           <IconTxtDesktop>Pomodoro</IconTxtDesktop>
         </Icon>
-        <Icon onClick={()=>setShow({...show, store:true})}>
-          <IconCenterImg><IconImg src={icone8} alt='icone' /></IconCenterImg>
-          <IconTxtDesktop>Store</IconTxtDesktop>
+        <Icon onClick={()=>setShow({...show, meteo:true})}>
+          <IconCenterImg><IconImg src={icone11} alt='icone' /></IconCenterImg>
+          <IconTxtDesktop>Meteo</IconTxtDesktop>
         </Icon>
         <Icon onClick={()=>setShow({...show, discord:true})}>
           <IconCenterImg><IconImg src={icone5} alt='icone' /></IconCenterImg>
           <IconTxtDesktop>Discord</IconTxtDesktop>
+        </Icon>
+        <Icon onClick={()=>setShow({...show, store:true})}>
+          <IconCenterImg><IconImg src={icone8} alt='icone' /></IconCenterImg>
+          <IconTxtDesktop>Store</IconTxtDesktop>
         </Icon>
       </IconDeskManager>
       <IconDustBin onClick={()=>setShow({...show, dustbin:true})}>
@@ -320,6 +334,9 @@ function Home() {
                 <MainImg autoPlay loop muted>
                       <source src={tws_home} type='video/mp4'/>
                 </MainImg>
+                {/* <MainImg>
+                  <img style={{width:"388px"}} src={giphy} alt="/"></img>
+                </MainImg> */}
                 <MainButtons>
                   <Icon onClick={()=>setShow({...show, store:true})}>
                     <IconCenterImg><IconImg src={icone8} alt='icone' /></IconCenterImg>
@@ -375,12 +392,6 @@ function Home() {
             <strong><HeaderWindow>AudioPlayer</HeaderWindow></strong>
             <ContentWindow>
               <ScAudioPlayer playerState={audioState} setPlayerState={setAudioState} volume={volume}/>
-              <br/>
-              <input type='range' min={0} max={1} step='any'
-                value={volume} 
-                onChange={handleVolumeChange}
-                style={{cursor:"grab"}}  
-              />
             </ContentWindow>
           </WindowAudioPlayer>
         </Draggable> 
@@ -392,7 +403,7 @@ function Home() {
             <CloseIconWindow onClick={()=>setShow({...show, radio:false})}/>
             <strong><HeaderWindow>RADIO FM</HeaderWindow></strong>
             <ContentWindow>
-              <ScAudioPlayer playerState={radioState} setPlayerState={setRadioState} volume={volume}/>
+              <ScRadio playerState={radioState} setPlayerState={setRadioState} volume={volume}/>
               <br/>
               <input type='range' min={0} max={1} step='any'
                 value={volume} 
@@ -454,10 +465,7 @@ function Home() {
               check our store and be aware of what is coming up 
               here and later through the news 
               and our newsletter!<br/>
-              Powered by SoundCloud and Twitch.<br/>
-              Developped by Théo J.
-              Inspiration from Poolsuite.net & windows93.net
-              Read our Privacy Policy
+              Read our Privacy Policy..
               </ContentWindowAbout>
             </ContentWindow>
           </Window>
@@ -476,6 +484,18 @@ function Home() {
           </WindowInsta>
         </Draggable> 
         :null 
+      }
+      {show.meteo? 
+        <Draggable handle="strong" bounds="body" onStart={handleIndex}>
+          <Window id={"meteo"} style={{zIndex:styleIndex.meteo}} onClick={handleIndex}>
+            <CloseIconWindow onClick={()=>setShow({...show, meteo:false})}/>
+            <strong><HeaderWindow>Meteo</HeaderWindow></strong>
+            <ContentWindow>
+              <WeatherAPI/>
+            </ContentWindow>
+          </Window>
+        </Draggable> 
+        :null
       }
     </Desktop>
     </>

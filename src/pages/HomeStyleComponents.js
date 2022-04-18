@@ -237,8 +237,6 @@ export const WindowMain = styled(Window)`
       height: 410px;
       width: 470px;
     }
-
-
 `
 
 export const WindowMixtape = styled(Window)`
@@ -249,15 +247,16 @@ export const WindowMixtape = styled(Window)`
     resize:both;
     overflow:hidden;
 
-    background-color: #f1f1f1;
+    background-color: #E7F0F4;
     @media ${device.tablet} {
       top:250px;
     }
 `
 
 export const WindowAudioPlayer = styled(Window)`
-    height: 200px;  
-    width:400px;
+    height:271px;  
+    width:460px;
+    background-color: #e7f0f4;
     @media ${device.tablet} {
       height: 200px;
       width:200px;
@@ -280,9 +279,9 @@ export const WindowRadio = styled(Window)`
 `
 
 export const WindowPomodoro = styled(Window)`
-    height: 300px;
+    height: 420px;
     width:300px;
-    background-color: #f1f1f1;
+    background-color: #e7f0f4;
     top:20vh;
 `
 
@@ -304,6 +303,7 @@ export const MixtapeWindow = styled.div`
   grid-template-rows: repeat(auto-fit, minmax(70px, 70px));
   gap:10px;
   color:black;
+  background-color:#e7f0f4;
   overflow:scroll;
 `
 
@@ -332,6 +332,19 @@ export const MainImg = styled.video`
   }
 `
 
+// export const MainImg = styled.div`
+//   width:100%;
+//   grid-column: 1 / 6;
+//   grid-row: 1 / 5;
+//   display:flex;
+//   align-items:center;
+//   justify-content: center;
+
+//   @media ${device.tablet} {
+//     display:none;
+//   }
+// `
+
 export const MainButtons = styled.button`
   grid-row: 5;
   display: flex;
@@ -340,6 +353,7 @@ export const MainButtons = styled.button`
   -webkit-appearance: none;
   -moz-appearance: none;
   cursor:pointer;
+  background-color: #e7f0f4;
   @media ${device.tablet} {
     grid-row:auto;
   }
