@@ -246,6 +246,8 @@ export const WindowMixtape = styled(Window)`
     min-width:190px;
     resize:both;
     overflow:hidden;
+    top:5vh;
+    right:10vw;
 
     background-color: #E7F0F4;
     @media ${device.tablet} {
@@ -254,9 +256,11 @@ export const WindowMixtape = styled(Window)`
 `
 
 export const WindowAudioPlayer = styled(Window)`
-    height:271px;  
-    width:460px;
+    height:400px;  
+    width:360px;
     background-color: #e7f0f4;
+    top:50vh;
+    right:10vw;
     @media ${device.tablet} {
       height: 200px;
       width:200px;
@@ -266,11 +270,12 @@ export const WindowAudioPlayer = styled(Window)`
 `
 
 export const WindowRadio = styled(Window)`
+    background-color: #e7f0f4;
     height: 400px;
-    width:400px;
-    right:60%;
+    width:600px;
+    right:50%;
     bottom:20%;
-    top:20%;
+    top:25%;
     @media ${device.tablet} {
       height: 200px;
       width:200px;
@@ -289,9 +294,6 @@ export const WindowInsta = styled(Window)`
   height:500px;
   width:500px;
 `
-
-//rajouter une taille minimum des fenetres -> empecher des resizes trop moches
-//remplacer le position: absolute par une fonction z-index
 
 export const MixtapeWindow = styled.div`
   height:100%;

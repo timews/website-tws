@@ -1,11 +1,15 @@
 import styled from 'styled-components'
 import React, {useState, useEffect, useRef} from "react";
+import useSound from 'use-sound';
 
 import knob from '../../assets/doorKnob.png'
 import soap from '../../assets/soapCycle.gif'
+import startSoap from '../../assets/soapStart.gif'
 
 import newSession from '../../assets/newSession.png'
 import playIconPressed from '../../assets/playIconPressed.png'
+
+import alarm from '../../assets/audios/dondadamixtape.mp3'
 
 const PomodoroWindow = styled.div`
     height:100%;
@@ -19,7 +23,7 @@ const PomodoroWindow = styled.div`
       "pannel pannel pannel"; 
 `
 
-//Sreen
+//SCREEN
 const ScreenWrapper = styled.div`
     grid-area:screen;
     display:flex;
@@ -33,7 +37,7 @@ const Screen = styled.div`
     background-color:#80c8d0;
     border:solid;
     border-radius:10px;
-    border-color:#1E1F24;
+    box-shadow:inset 0px 0px 5px 3px rgb(150 190 175);
     display: flex;
     flex-direction: column;
     align-items:center;
@@ -126,7 +130,7 @@ const InnerCircle = styled.div`
     justify-content:center;
 `
 
-//Door
+//DOOR
 const Door = styled.div`
     grid-area:door;
     display:flex;
@@ -145,6 +149,8 @@ const DoorBorder = styled.div`
     box-shadow: inset 0px 0px 0px 20px rgb(192 206 214), 6px 0px 2px 0px rgb(167 175 181);
 `
 
+
+//BOTTOM WM
 const Pannel = styled.div`
     grid-area:pannel;
     display:flex;
@@ -159,24 +165,32 @@ const TrapDoor = styled.div`
     margin-right: 10px;
     border-radius: 10px;
     border:solid;
-    border-width:thin;
     margin-bottom: 1px;
 `
 
-// const Controls = styled.button`
-//     margin:1em;
-//     cursor:pointer;
-// `
+const Lock = styled.div`
+    height:10px;
+    width:10px;
+    background-color: #c0ced6;
+    margin-left:90px;
+    margin-top:15px;
+    border-radius:5px;
+    border:solid;
+    border-width:thin;
+    box-shadow: inset 1px 0px 0px 1px rgb(167 175 181)
+`
 
 const Pomodoro = () => {
+
+    const [play] = useSound(alarm)
 
     const[minutes, setMinutes] = useState(25);
     const[seconds, setSeconds] = useState(0);
     const[displayMessage, setDisplayMessage] = useState(false);
     const[pause, setPause] = useState(true);
-    const[reset, setReset] = useState(false);
+    const[press, setPress] = useState(false);
 
-    const intervalRef = useRef(null)
+    const intervalRef = useRef(null);
 
     useEffect(() => {
         intervalRef.current = setInterval(() => {
@@ -189,6 +203,7 @@ const Pomodoro = () => {
                     setMinutes(prevState => prevState - 1);
                 } else {
                     displayMessage ? setMinutes(24): setMinutes(4);
+                    play()
                     setMinutes(25);
                     setDisplayMessage(!displayMessage);
                 }
@@ -197,52 +212,52 @@ const Pomodoro = () => {
             }
         }, 1000)
         return () => clearInterval(intervalRef.current)
-    }, [minutes, seconds, displayMessage, pause]);
+    }, [minutes, seconds, displayMessage, pause, play]);
 
     function resetSession(){
-        setReset(prevState => !prevState);
+        setPress(prevState => !prevState);
         let minutes = 25;
         let seconds = 0;
-
-        setSeconds(seconds);
-        setMinutes(minutes);
-        setDisplayMessage(false);
-        clearInterval(intervalRef.current);
-        intervalRef.current = null
-        setPause(true);
+        if (displayMessage) {
+            setSeconds(seconds);
+            setMinutes(minutes);
+            setDisplayMessage(false);
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+            setPause(true);
+        } else {
+            minutes = 5;
+            setSeconds(seconds);
+            setMinutes(minutes);
+            setDisplayMessage(true);
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
     }
-
-    function resetBreak(){
-        let minutes = 5
-        let seconds = 0;
-
-        setSeconds(seconds);
-        setMinutes(minutes);
-        setDisplayMessage(true);
-        clearInterval(intervalRef.current);
-        intervalRef.current = null
-    }
-
+    
     const timerMinutes = minutes < 10 ? `0${minutes}`: minutes;
     const timerSeconds = seconds < 10 ? `0${seconds}`: seconds;
 
     return (
         <PomodoroWindow>
-            <img src={soap} style={{opacity:"0.9", position:"absolute", width:"69%", marginTop:"98px", marginLeft:"47px"}} alt="/"></img>
+            {pause?
+                <img src={startSoap} style={{opacity:"0.9", position:"absolute", width:"69%", marginTop:"98px", marginLeft:"47px"}} alt="start"></img>:
+                <img src={soap} style={{opacity:"0.9", position:"absolute", width:"69%", marginTop:"98px", marginLeft:"47px"}} alt="/"></img>   
+            }
             <ScreenWrapper>
                 <Screen>
                     <Message>
-                            {displayMessage? <MessageLabel>BREAK TIME!</MessageLabel>
-                                :<MessageLabel>IN PROGRESS</MessageLabel> }
+                            {pause? <MessageLabel>BREAK</MessageLabel>:
+                            (displayMessage? <MessageLabel>REST TIME!</MessageLabel>
+                                :<MessageLabel>IN PROGRESS</MessageLabel>) }
                     </Message>
                     <Timer>{timerMinutes}:{timerSeconds}</Timer>
                 </Screen>
             </ScreenWrapper>
             <PlayPauseNewSession>
-                {/* basculer breaktime et newSession avec /2 */}
-                <Btn onMouseDown={resetSession} onMouseUp={() => setReset(prevState => !prevState)}>
+                <Btn onMouseDown={resetSession} onMouseUp={() => setPress(prevState => !prevState)}>
                     <OuterCircle>
-                        {reset?
+                        {press?
                             <InnerCirclePressed>
                                 <img style={{marginLeft:"2px", marginTop:"1px", height:"80%"}} src={newSession} alt='iconBtn'/>
                             </InnerCirclePressed>:
@@ -252,7 +267,7 @@ const Pomodoro = () => {
                         }
                     </OuterCircle>
                 </Btn>
-                <Btn onClick={() => setPause(prevState => !prevState)}>
+                <Btn onMouseDown={() => setPause(prevState => !prevState)}>
                     <OuterCircle>
                         {pause?
                             <InnerCircle>
@@ -271,7 +286,10 @@ const Pomodoro = () => {
                 <img style={{position:"absolute", height:"78px", marginTop:"-4px", marginLeft:"214px"}} src={knob} alt='knob'></img>
             </Door>
             <Pannel>
-                <TrapDoor></TrapDoor>
+                <TrapDoor>
+                    <Lock>
+                    </Lock>
+                </TrapDoor>
             </Pannel>
         </PomodoroWindow>
     );

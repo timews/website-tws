@@ -80,7 +80,7 @@ function Home() {
     insta:false,
     store:false,
     discord:false,
-    meteo:false,
+    weather:false,
     dustbin:false
   })
 
@@ -99,7 +99,7 @@ function Home() {
     store:"11",
     discord:"12",
     dustbin:"13",
-    meteo:"14"
+    weather:"14"
   })
 
   const handleIndex = (e) => {
@@ -210,9 +210,9 @@ function Home() {
           <IconCenterImg><IconImg src={icone7} alt='icone' /></IconCenterImg>
           <IconTxtDesktop>Pomodoro</IconTxtDesktop>
         </Icon>
-        <Icon onClick={()=>setShow({...show, meteo:true})}>
+        <Icon onClick={()=>setShow({...show, weather:true})}>
           <IconCenterImg><IconImg src={icone11} alt='icone' /></IconCenterImg>
-          <IconTxtDesktop>Meteo</IconTxtDesktop>
+          <IconTxtDesktop>Weather</IconTxtDesktop>
         </Icon>
         <Icon onClick={()=>setShow({...show, discord:true})}>
           <IconCenterImg><IconImg src={icone5} alt='icone' /></IconCenterImg>
@@ -237,7 +237,7 @@ function Home() {
             <TwitchEmbed id="twitch-embed">
               <iframe title="livetwitch" 
                 // src="https://player.twitch.tv/?channel=otplol_&parent=timews.github.io" 
-                src="https://player.twitch.tv/?channel=otplol_&parent=localhost" 
+                src="https://player.twitch.tv/?channel=tws_walk&parent=localhost" 
                 frameBorder="0" allowFullScreen={true} scrolling="no" 
                 height="100%" width="100%">
               </iframe>
@@ -251,14 +251,14 @@ function Home() {
         <Draggable handle="strong" bounds="body" onStart={handleHeader} onStop={handleHeader}>
           <WindowTvChat id={"tvChat"} style={{zIndex:styleIndex.tvChat}}>
             <CloseIconWindowTvChat onClick={()=>setShow({...show, tvChat:false})}/>
-            <strong><HeaderWindowTvChat>TWS Chat</HeaderWindowTvChat></strong>
+            <strong><HeaderWindowTvChat>TWS CHAT</HeaderWindowTvChat></strong>
             {activeHeader? null: <div style={{position:"absolute", opacity:"0.1", height:"100%", width:"100%", backgroundColor:"black"}}></div>}
             <ContentWindow style={{marginTop:"25px", height:"100%"}}> 
               <div id="twitch-embed-chat" style={{height:"100%", width:"100%"}}>
                 <iframe title="chattwitch"
                   id="chat_embed"
                   // src="https://www.twitch.tv/embed/otplol_/chat?parent=timews.github.io&darkpopout"
-                  src="https://www.twitch.tv/embed/otplol_/chat?parent=localhost&darkpopout"
+                  src="https://www.twitch.tv/embed/tws_walk/chat?parent=localhost&darkpopout"
                   height="94%"
                   width="99.2%">
                 </iframe>
@@ -273,7 +273,7 @@ function Home() {
           <WindowMixtape id={"mixtape"} style={{zIndex:styleIndex.mixtape}} onClick={handleIndex}>
             <div style={{position:"sticky", top:"0px", width:"100%"}}>
               <CloseIconWindow onClick={()=>setShow({...show, mixtape:false})}/>
-              <strong><HeaderWindow>Mixtapes</HeaderWindow></strong>
+              <strong><HeaderWindow>MIXTAPES</HeaderWindow></strong>
             </div>
             <ContentWindow>
               <MixtapeWindow>
@@ -377,7 +377,7 @@ function Home() {
         <Draggable handle="strong" bounds="body" onStart={handleIndex}>
           <WindowPomodoro id={"pomodoro"} style={{zIndex:styleIndex.pomodoro}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShow({...show, pomodoro:false})}/>
-            <strong><HeaderWindow>Pomodoro Timer</HeaderWindow></strong>
+            <strong><HeaderWindow>POMODORO TIMER</HeaderWindow></strong>
             <ContentWindow> 
               <Pomodoro />
             </ContentWindow>
@@ -389,7 +389,7 @@ function Home() {
         <Draggable handle="strong" bounds="body" onStart={handleIndex}>
           <WindowAudioPlayer id={"audioPlayer"} style={{zIndex:styleIndex.audioPlayer}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShow({...show, audioPlayer:false})}/>
-            <strong><HeaderWindow>AudioPlayer</HeaderWindow></strong>
+            <strong><HeaderWindow>AUDIO PLAYER</HeaderWindow></strong>
             <ContentWindow>
               <ScAudioPlayer playerState={audioState} setPlayerState={setAudioState} volume={volume}/>
             </ContentWindow>
@@ -402,15 +402,13 @@ function Home() {
           <WindowRadio id={"radio"} style={{zIndex:styleIndex.radio}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShow({...show, radio:false})}/>
             <strong><HeaderWindow>RADIO FM</HeaderWindow></strong>
-            <ContentWindow>
-              <ScRadio playerState={radioState} setPlayerState={setRadioState} volume={volume}/>
-              <br/>
-              <input type='range' min={0} max={1} step='any'
-                value={volume} 
-                onChange={handleVolumeChange}
-                style={{cursor:"grab"}} 
-              />
-            </ContentWindow>
+            <ScRadio playerState={radioState} setPlayerState={setRadioState} volume={volume}/>
+            {/* <br/>
+            <input type='range' min={0} max={1} step='any'
+              value={volume} 
+              onChange={handleVolumeChange}
+              style={{cursor:"grab"}} 
+            /> */}
           </WindowRadio>
         </Draggable> 
         :null
@@ -431,7 +429,7 @@ function Home() {
         <Draggable handle="strong" bounds="body" onStart={handleIndex}>
           <Window id={"newsletter"} style={{zIndex:styleIndex.newsletter}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShow({...show, newsletter:false})}/>
-            <strong><HeaderWindow>Newsletter</HeaderWindow></strong>
+            <strong><HeaderWindow>NEWSLETTER</HeaderWindow></strong>
             <ContentWindow>
               let us your email to be update about our news, 
               our website updates or our drops on the store
@@ -444,7 +442,7 @@ function Home() {
         <Draggable handle="strong" bounds="body" onStart={handleIndex}>
           <Window id={"contact"} style={{zIndex:styleIndex.contact}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShowOption({...showOption, contact:false})}/>
-            <strong><HeaderWindow>Contact Us</HeaderWindow></strong>
+            <strong><HeaderWindow>CONTACT US</HeaderWindow></strong>
             <ContentWindow>
             </ContentWindow>
           </Window>
@@ -455,7 +453,7 @@ function Home() {
         <Draggable handle="strong" bounds="body" onStart={handleIndex}>
           <Window id={"about"} style={{zIndex:styleIndex.about}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShowOption({...showOption, about:false})}/>
-            <strong><HeaderWindow>About</HeaderWindow></strong>
+            <strong><HeaderWindow>ABOUT</HeaderWindow></strong>
             <ContentWindow>
               <ContentWindowAbout>
               Hi, welcome on Time Well Spent :)<br/>
@@ -476,7 +474,7 @@ function Home() {
         <Draggable handle="strong" bounds="body" onStart={handleIndex}>
           <WindowInsta id={"insta"} style={{zIndex:styleIndex.insta}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShow({...show, insta:false})}/>
-            <strong><HeaderWindow>Insta</HeaderWindow></strong>
+            <strong><HeaderWindow>INSTA</HeaderWindow></strong>
             <ContentWindow>
               {/* <iframe title="instagram" width="320" height="440" src="https://www.instagram.com/p/Cah9ERBPu7Y/embed" frameborder="0"></iframe> */}
               <iframe title="instagram" width="320" height="440" src="" frameborder="0"></iframe>
@@ -485,11 +483,11 @@ function Home() {
         </Draggable> 
         :null 
       }
-      {show.meteo? 
+      {show.weather? 
         <Draggable handle="strong" bounds="body" onStart={handleIndex}>
-          <Window id={"meteo"} style={{zIndex:styleIndex.meteo}} onClick={handleIndex}>
-            <CloseIconWindow onClick={()=>setShow({...show, meteo:false})}/>
-            <strong><HeaderWindow>Meteo</HeaderWindow></strong>
+          <Window id={"weather"} style={{zIndex:styleIndex.weather}} onClick={handleIndex}>
+            <CloseIconWindow onClick={()=>setShow({...show, weather:false})}/>
+            <strong><HeaderWindow>WEATHER</HeaderWindow></strong>
             <ContentWindow>
               <WeatherAPI/>
             </ContentWindow>

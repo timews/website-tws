@@ -225,7 +225,6 @@ function Header({showOption, setShowOption, volume, handleVolumeChange}) {
     const handleNav = (e) => {
         let tempo = e.currentTarget.id;
         setShowNav(prevState => ({...prevState, [tempo]: !prevState[tempo] }));
-        console.log(showNav);
     };
 
     return(

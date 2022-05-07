@@ -9,7 +9,7 @@ const WeatherAPI = () => {
     const [city, setCity] = useState('london')
 
     const dispatch = useDispatch();
-    // API Meteo
+    // API Weather
     useEffect(() => {
         dispatch(fetchWeatherAction("paris"));
     }, [dispatch]);

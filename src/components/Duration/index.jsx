@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function Duration ({ className, seconds }) {
+export default function Duration ({ className, seconds, size }) {
   return (
-    <time dateTime={`P${Math.round(seconds)}S`} className={className}>
+    <time style={{fontSize:size}} dateTime={`P${Math.round(seconds)}S`} className={className}>
       {format(seconds)}
     </time>
   )

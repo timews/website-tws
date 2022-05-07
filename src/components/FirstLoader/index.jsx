@@ -6,11 +6,13 @@ const black = "#000000"
 const dark = "#33202a"
 const lighter = "#5f5566"
 const white = "#f5f4f6"
-const green = "#39ff14"
-const yellow = "#fcab10"
+// const green = "#39ff14"
+// const yellow = "#fcab10"
+const green = "#80c8d0"
+const yellow = "#c091b9"
 
 const Body = styled.div`
-	background-color: ${black};
+	background-color: rgb(0,0,0,0.9);
 	// background: radial-gradient(
 	// 	ellipse at right 34% bottom 5%,
 	// 	${dark},
