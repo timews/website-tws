@@ -301,7 +301,7 @@ const ProgressDuration = styled.div`
     background: #80c8d0;
     // box-shadow: inset 0px 0px 3px 2px rgb(150 190 175);
     box-shadow: inset 0px 0px 0px 4px #000, inset 0px 0px 3px 5px rgb(150 190 175);
-    border:solid;
+    border:solid; 
     border-radius:10px;
 `
 
@@ -310,7 +310,7 @@ const TotalDuration = styled.div`
     color:#555555;
     position: absolute;
     margin-top: -127px;
-    margin-left: 112px;
+    margin-left: 104px;
     font-size: 13px;
 `
 
@@ -394,7 +394,6 @@ const ScAudioPlayer = ({playerState, setPlayerState, volume}) => {
 
     const handleDuration = (dur) => {
         setPlayerState({...playerState, duration:dur})
-        console.log(dur)
     }
 
     const handleEnded = () => {

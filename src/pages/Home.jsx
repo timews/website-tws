@@ -245,7 +245,7 @@ function Home() {
             <ContentWindow> 
             <TwitchEmbed id="twitch-embed">
               <iframe title="livetwitch" 
-                src="https://player.twitch.tv/?channel=otplol_&parent=timews.github.io" 
+                src="https://player.twitch.tv/?channel=tws_walk&parent=timews.github.io" 
                 // src="https://player.twitch.tv/?channel=tws_walk&parent=localhost" 
                 frameBorder="0" allowFullScreen={true} scrolling="no" 
                 height="100%" width="100%">
