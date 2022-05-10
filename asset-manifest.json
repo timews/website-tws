@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/website-tws/static/css/main.d8e903ad.css",
-    "main.js": "/website-tws/static/js/main.a4313578.js",
+    "main.js": "/website-tws/static/js/main.0d7ae5e8.js",
     "static/js/845.273999fa.chunk.js": "/website-tws/static/js/845.273999fa.chunk.js",
     "static/media/soapCycle.gif": "/website-tws/static/media/soapCycle.e4eba86611f147a18b00.gif",
     "static/media/home_tws.mp4": "/website-tws/static/media/home_tws.94b5be873d2f83067397.mp4",
@@ -18,11 +18,11 @@
     "static/media/logo.svg": "/website-tws/static/media/logo.35c16ca2c2cd5c9037c10370037ef678.svg",
     "index.html": "/website-tws/index.html",
     "main.d8e903ad.css.map": "/website-tws/static/css/main.d8e903ad.css.map",
-    "main.a4313578.js.map": "/website-tws/static/js/main.a4313578.js.map",
+    "main.0d7ae5e8.js.map": "/website-tws/static/js/main.0d7ae5e8.js.map",
     "845.273999fa.chunk.js.map": "/website-tws/static/js/845.273999fa.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d8e903ad.css",
-    "static/js/main.a4313578.js"
+    "static/js/main.0d7ae5e8.js"
   ]
 }
