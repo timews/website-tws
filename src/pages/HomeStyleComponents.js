@@ -247,7 +247,7 @@ export const WindowMixtape = styled(Window)`
     resize:both;
     overflow:hidden;
     top:5vh;
-    right:10vw;
+    left:5vw;
 
     background-color: #E7F0F4;
     @media ${device.tablet} {
@@ -291,8 +291,10 @@ export const WindowPomodoro = styled(Window)`
 `
 
 export const WindowInsta = styled(Window)`
-  height:500px;
-  width:500px;
+  height: 350px;
+  width: 300px;
+  top:20%;
+  right:50%;
 `
 
 export const MixtapeWindow = styled.div`
@@ -316,11 +318,17 @@ export const HomeWindow = styled.div`
   grid-template-rows: repeat(5, 1fr);
   grid-gap:1px;
 
+  @media ${device.laptop}{
+    height:385px;
+  }
+  @media ${device.laptopL}{
+    height:385px;
+  }
   @media ${device.tablet} {
     display:grid;
     grid-template-columns: repeat(3, minmax(75px, 75px));
     grid-template-rows: 1fr 1fr 30px;
-    grid-gap:1px;
+    height:185px;
   }
 `
 
@@ -356,6 +364,7 @@ export const MainButtons = styled.button`
   -moz-appearance: none;
   cursor:pointer;
   background-color: #e7f0f4;
+  margin:0px;
   @media ${device.tablet} {
     grid-row:auto;
   }

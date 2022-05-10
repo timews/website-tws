@@ -1,4 +1,4 @@
-import React, {useRef} from "react"
+import React, {useRef, useState} from "react"
 import styled from 'styled-components'
 import ScReactPlayer from 'react-player/soundcloud'
 import Duration from "../Duration"
@@ -309,8 +309,9 @@ const TotalDuration = styled.div`
     grid-area: Tape;
     color:#555555;
     position: absolute;
-    margin-top: -128px;
-    margin-left: 95px;
+    margin-top: -127px;
+    margin-left: 112px;
+    font-size: 13px;
 `
 
 const ButtonsControls = styled.div`
@@ -334,6 +335,11 @@ const Button = styled.div`
     border-bottom-right-radius: 5px;
     background-color: #e7f0f4;
     margin-left:2px;
+    cursor:pointer;
+    &:first-child{
+        // background:#B53737;
+        background:#c091b9;
+    }
 `
 
 const ButtonDecoration = styled.div`
@@ -341,7 +347,7 @@ const ButtonDecoration = styled.div`
     background-color: #8B8B8B;
     height: 40px;
     margin-top: 35px;
-    margin-left: 21.5px;
+    margin-left: 20px;
     border-radius: 3px;
     border: solid;
     border-width: thin;
@@ -352,6 +358,15 @@ const ButtonDecoration = styled.div`
 const ButtonLabel = styled.div`
     margin-top: -58px;
     font-size: 14px;
+    pointer-events: none;
+`
+
+const ButtonPressed = styled(Button)`
+    box-shadow: inset 0px 0px 15px 10px #bbb;
+`
+
+const ButtonDecorationPressed = styled(ButtonDecoration)`
+    box-shadow: inset 0px 0px 15px 10px #bbb;
 `
 
 const ScAudioPlayer = ({playerState, setPlayerState, volume}) => {
@@ -384,6 +399,27 @@ const ScAudioPlayer = ({playerState, setPlayerState, volume}) => {
 
     const handleEnded = () => {
         setPlayerState({...playerState, playing:false})
+    }
+
+    const [press, setPress] = useState({
+        stop:false,
+        play:false,
+        pause:false
+    })
+
+    const stopAudio = () => {
+        setPress({...press, stop:true, play:false, pause:false})
+        setPlayerState({...playerState, scUrl:'', playing:false, played:0, duration:0, seeking:false})
+    }
+    
+    const playAudio = () => {
+        setPress({...press, play:true, pause:false})
+        setPlayerState({...playerState, playing:true, duration:playerState.duration})
+    }
+
+    const pauseAudio = () => {
+        setPress({...press, play:false, pause:true})
+        setPlayerState({...playerState, playing:false, duration:playerState.duration})
     }
 
     // const handlePlayPause = () => {
@@ -458,10 +494,19 @@ const ScAudioPlayer = ({playerState, setPlayerState, volume}) => {
                     <TapeBorder>
                         <FgTape alt="fgTape" src={fgTape}/>
                         {/* <Glass alt="glass" src={glass}></Glass> */}
-                        <Wheel alt="wheel" src={wheel}></Wheel>
-                        <Wheel style={{marginLeft:"228px"}} alt="wheel" src={wheel}></Wheel>
-                        <BgTape alt="bgTape" src={bgTape}/>
-                        <TotalDuration><Duration seconds={playerState.duration}/></TotalDuration>
+                        {playerState.scUrl?
+                        <>
+                            <Wheel alt="wheel" src={wheel}></Wheel>
+                            <Wheel style={{marginLeft:"228px"}} alt="wheel" src={wheel}></Wheel>
+                            <BgTape alt="bgTape" src={bgTape}/>
+                            <TotalDuration><Duration seconds={playerState.duration}/></TotalDuration>
+                        </>:
+                        <>
+                            <Wheel alt="wheel" src={wheel}></Wheel>
+                            <Wheel style={{marginLeft:"228px"}} alt="wheel" src={wheel}></Wheel>
+                            <BgTape alt="bgTape" src={bgTape}/>
+                        </>
+                        }
                     </TapeBorder>
                 </TapePlayer>
                 <SeekBar
@@ -475,9 +520,18 @@ const ScAudioPlayer = ({playerState, setPlayerState, volume}) => {
                     <Duration style={{alignSelf:"center"}}seconds={playerState.duration * playerState.played}/>
                 </ProgressDuration>
                 <ButtonsControls>
-                    <Button><ButtonDecoration><ButtonLabel>STOP</ButtonLabel></ButtonDecoration></Button>
-                    <Button><ButtonDecoration><ButtonLabel>PLAY</ButtonLabel></ButtonDecoration></Button>
-                    <Button><ButtonDecoration><ButtonLabel>PAUSE</ButtonLabel></ButtonDecoration></Button>
+                    {press.stop?
+                        <ButtonPressed onMouseUp={()=>setPress({...press, stop:false})}><ButtonDecorationPressed><ButtonLabel>STOP</ButtonLabel></ButtonDecorationPressed></ButtonPressed>:
+                        <Button onMouseDown={stopAudio}><ButtonDecoration><ButtonLabel>STOP</ButtonLabel></ButtonDecoration></Button>
+                    }
+                    {press.play?
+                        <ButtonPressed><ButtonDecorationPressed><ButtonLabel>PLAY</ButtonLabel></ButtonDecorationPressed></ButtonPressed>:
+                        <Button onMouseDown={playAudio}><ButtonDecoration><ButtonLabel>PLAY</ButtonLabel></ButtonDecoration></Button>
+                    }
+                    {press.pause?
+                        <ButtonPressed><ButtonDecorationPressed><ButtonLabel>PAUSE</ButtonLabel></ButtonDecorationPressed></ButtonPressed>:
+                        <Button onMouseDown={pauseAudio}><ButtonDecoration><ButtonLabel>PAUSE</ButtonLabel></ButtonDecoration></Button>
+                    }
                 </ButtonsControls>
             </DivGrid>
         </> 

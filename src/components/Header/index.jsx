@@ -16,12 +16,12 @@ const NavContainer = styled.nav`
     width:100vw;
 
     display:grid;
-    grid-template-columns: 150px 1fr 32px 62px 116px;
+    grid-template-columns: 150px 1fr 32px 62px 62px 116px;
     grid-template-rows: repeat(7, 26px);
 
     @media ${device.mobileL} {
         display:grid;
-        grid-template-columns: 130px 1fr 32px 0px 116px;
+        grid-template-columns: 130px 1fr 0px 62px 0px 116px;
         grid-template-rows: repeat(7, 26px);
     }
 `
@@ -80,15 +80,12 @@ const HomeNavOptions = styled.button`
     display:flex;
     align-items:center;
     padding-left:10px;
-    // justify-content: center;
 
     cursor:pointer;
 
     &:nth-child(1){
         border-top: 1px solid #343354;
     }
-
-    cursor:pointer;
 `
 
 const SnsNav = styled.div`
@@ -130,6 +127,9 @@ const InfoNavVolume = styled(InfoNav)`
     grid-column:3/4;
     grid-row:1;
     cursor:pointer;
+    @media ${device.mobileL} {
+        display:none;
+    }
 `
 
 const InfoNavVolumeIcon = styled.img`
@@ -137,6 +137,9 @@ const InfoNavVolumeIcon = styled.img`
     width:15px;
     color:white;
     image-rendering:pixelated;
+    @media ${device.mobileL} {
+        display:none;
+    }
 `
 
 const VolumeExtension = styled.div`
@@ -146,10 +149,25 @@ const VolumeExtension = styled.div`
     height:100%;
     grid-column:3/4;
     grid-row:2/6;
+    @media ${device.mobileL} {
+        display:none;
+    }
+`
+
+const InfoNavFullScreen = styled.div`
+    grid-column:4/5;
+    grid-row:1;
+    border-left: 2px solid #343354;
+    border-right: 2px solid #343354;
+    border-bottom: 1px solid #343354;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:8px;
 `
 
 const InfoNavTime = styled(InfoNav)`
-    grid-column:4/5;
+    grid-column:5/6;
     grid-row:1;
     @media ${device.mobileL} {
         display:none;
@@ -158,7 +176,7 @@ const InfoNavTime = styled(InfoNav)`
 
 const InfoNavDate = styled(InfoNav)`
     border-left: 2px solid #343354;
-    grid-column:5/6;
+    grid-column:6/7;
     grid-row:1;
 `
 
@@ -227,6 +245,25 @@ function Header({showOption, setShowOption, volume, handleVolumeChange}) {
         setShowNav(prevState => ({...prevState, [tempo]: !prevState[tempo] }));
     };
 
+    const [full, setFull] = useState(false)
+    const root = document.getElementById('root')
+
+    const toggleFullScreen = () => {
+        if(full){
+            document.exitFullscreen()
+            setFull(false)
+        }
+        else{
+            root.requestFullscreen()
+            setFull(true)
+        }
+    }
+    
+    const tabInsta = () => {
+        const urlInsta = 'https://www.instagram.com/tws_korea/'
+        window.open(urlInsta, '_blank');
+    }
+
     return(
         <NavContainer>
             <ButtonHomeNav id="menu" onClick={handleNav} >
@@ -241,6 +278,9 @@ function Header({showOption, setShowOption, volume, handleVolumeChange}) {
             <InfoNavVolume id="volumeNav" onClick={handleNav}>
                     <InfoNavVolumeIcon src={speaker} alt="vol."/>
             </InfoNavVolume>
+            <InfoNavFullScreen onClick={toggleFullScreen}>
+                <span>fullscreen</span>
+            </InfoNavFullScreen>
             <InfoNavTime>{time}</InfoNavTime>
             <InfoNavDate>{date}</InfoNavDate>
             {showNav.volumeNav? <VolumeExtension><VolumeInput type='range' min={0} max={1} step="any"
@@ -249,10 +289,10 @@ function Header({showOption, setShowOption, volume, handleVolumeChange}) {
                     />
                     </VolumeExtension>:null}
             {showNav.menu? <HomeNav>
-                <HomeNavOptions>
+                <HomeNavOptions style={{color:"grey", cursor:"auto"}}>
                     Login
                 </HomeNavOptions>
-                <HomeNavOptions>
+                <HomeNavOptions style={{color:"grey", cursor:"auto"}}>
                     Themes
                 </HomeNavOptions>
                 <HomeNavOptions onClick={()=>setShowOption({...showOption, contact:true})}>
@@ -269,7 +309,7 @@ function Header({showOption, setShowOption, volume, handleVolumeChange}) {
                     About
                 </HomeNavOptions>
                 {showNav.sns? <SnsNav>
-                    <SnsNavOptions>
+                    <SnsNavOptions onClick={tabInsta}>
                         Instagram
                     </SnsNavOptions>
                     <SnsNavOptions>

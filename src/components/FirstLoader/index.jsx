@@ -193,8 +193,8 @@ function Test(){
                 await wait(300);
                 await Writer2.write(`TWS:~ Timewellspent$ <strong>Compiled successfully.</strong>
             hash: ${Date.now()}
-            package: <a href="" target="_blank">alex&theo.tws?v1</a>
-            version: 0.1.29
+            package: <a href="" target="_blank">tws?v1</a>
+            version: 0.1.03
             time: ${random(0, 1500, "round")}ms
             <strong>[CLIC]</strong> TO SKIP
 
@@ -209,7 +209,7 @@ function Test(){
 
 			서울에 본사를 둔 한국 회사입니다
 
-    <b>Welcome To Time Well Spent Terminal!</b> (v 0.1.29)
+    <b>Welcome To Time Well Spent Terminal!</b> (v 0.1.03)
         <i>${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}</i>
         PRESS <strong>[SPACE]</strong> OR <strong>[CLIC]</strong> TO ENTER
     By entering TimeWellSpent, you agree to our Cookie Policy <a href="" target="_blank">[Press C]</a>, our Privacy Policy <a href="" target="_blank">[P]</a> and our Terms of Service <a href="" target="_blank">[T]</a>

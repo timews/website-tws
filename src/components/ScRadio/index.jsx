@@ -3,8 +3,8 @@ import ScReactPlayer from 'react-player/soundcloud'
 import Duration from "../Duration"
 import styled from "styled-components"
 
-import newSession from '../../assets/newSession.png'
-import playIconPressed from '../../assets/playIconPressed.png'
+import fastForward from '../../assets/fast-forward.svg'
+import playPause from '../../assets/play-pause.svg'
 import vibe from '../../assets/radioVibe.gif'
 
 // excess height to improve interactive area / accessibility
@@ -234,7 +234,6 @@ const SmallControl = styled.div`
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:10px;
   justify-content:center;
   margin-left: -5px;
 `
@@ -249,6 +248,7 @@ const Btn = styled.button`
     outline: inherit;
     width: 50px;
     height: 50px;
+    -webkit-margin-after:10px;
 `
 
 const OuterCircle = styled.div`
@@ -484,7 +484,7 @@ const ScRadio = ({playerState, setPlayerState, volume}) => {
     const[press, setPress] = useState(false);
 
     const next = () => {
-      console.log("hi")
+      setPress(prevState => !prevState);
     }
 
     const [top, setTop] = useState(114)
@@ -588,10 +588,10 @@ const ScRadio = ({playerState, setPlayerState, volume}) => {
                       <OuterCircle>
                           {press?
                               <InnerCirclePressed>
-                                  <img style={{marginLeft:"2px", marginTop:"1px", height:"25px"}} src={newSession} alt='iconBtn'/>
+                                  <img style={{marginTop:"8px", height:"42px", filter:"invert(69%) sepia(26%) saturate(382%) hue-rotate(258deg) brightness(86%) contrast(91%)"}} src={fastForward} alt='iconBtn'/>
                               </InnerCirclePressed>:
                               <InnerCircle>
-                                  <img style={{marginLeft:"2px", marginTop:"-1px", height:"25px"}} src={newSession} alt='iconBtn'/>
+                                  <img style={{marginTop:"6px", height:"42px", filter:"invert(69%) sepia(26%) saturate(382%) hue-rotate(258deg) brightness(86%) contrast(91%)"}} src={fastForward} alt='iconBtn'/>
                               </InnerCircle>
                           }
                       </OuterCircle>
@@ -600,10 +600,10 @@ const ScRadio = ({playerState, setPlayerState, volume}) => {
                       <OuterCircle>
                           {!playerState.playing?
                               <InnerCircle>
-                                  <img style={{marginLeft:"4px", marginTop:"-1px", height:"40px"}} src={playIconPressed} alt='iconBtn'/>
+                                  <img style={{marginTop:"4px", height:"32px", filter:"invert(69%) sepia(26%) saturate(382%) hue-rotate(258deg) brightness(86%) contrast(91%)"}} src={playPause} alt='iconBtn'/>
                               </InnerCircle>:
                               <InnerCirclePressed>
-                                  <img style={{marginLeft:"4px", marginTop:"1px", height:"40px"}} src={playIconPressed} alt='iconBtn'/>
+                                  <img style={{marginTop:"6px", height:"32px", filter:"invert(69%) sepia(26%) saturate(382%) hue-rotate(258deg) brightness(86%) contrast(91%)"}} src={playPause} alt='iconBtn'/>
                               </InnerCirclePressed>
                           }
                       </OuterCircle>

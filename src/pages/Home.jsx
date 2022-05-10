@@ -26,6 +26,7 @@ import {icone1, icone2, icone3, icone4, icone5, icone6,
 
 import tws_home from '../assets/home_tws.mp4'
 import jingle from '../assets/audios/dondadamixtape.mp3'
+import instaQR from '../assets/insta_qr.png'
 
 function debounce(fn, ms) {
   let timer;
@@ -168,6 +169,11 @@ function Home() {
     setRadioState({...radioState, playing:true})
   }
 
+  const tabInsta = () => {
+    const urlInsta = 'https://www.instagram.com/tws_korea/'
+    window.open(urlInsta, '_blank');
+  }
+
   return (
     <>
     {loaded? <div style={{position: "absolute",
@@ -210,7 +216,8 @@ function Home() {
           <IconCenterImg><IconImg src={icone7} alt='icone' /></IconCenterImg>
           <IconTxtDesktop>Pomodoro</IconTxtDesktop>
         </Icon>
-        <Icon onClick={()=>setShow({...show, weather:true})}>
+        {/* <Icon onClick={()=>setShow({...show, weather:true})}> */}
+        <Icon style={{cursor:'auto'}}>
           <IconCenterImg><IconImg src={icone11} alt='icone' /></IconCenterImg>
           <IconTxtDesktop>Weather</IconTxtDesktop>
         </Icon>
@@ -218,12 +225,14 @@ function Home() {
           <IconCenterImg><IconImg src={icone5} alt='icone' /></IconCenterImg>
           <IconTxtDesktop>Discord</IconTxtDesktop>
         </Icon>
-        <Icon onClick={()=>setShow({...show, store:true})}>
+        {/* <Icon onClick={()=>setShow({...show, store:true})}> */}
+        <Icon style={{cursor:'auto'}}>
           <IconCenterImg><IconImg src={icone8} alt='icone' /></IconCenterImg>
           <IconTxtDesktop>Store</IconTxtDesktop>
         </Icon>
       </IconDeskManager>
-      <IconDustBin onClick={()=>setShow({...show, dustbin:true})}>
+      {/* <IconDustBin onClick={()=>setShow({...show, dustbin:true})}> */}
+      <IconDustBin style={{cursor:'auto'}}>
         <IconCenterImg><IconImg src={icon_dustbin} alt='icone' /></IconCenterImg>
         <IconTxtDesktop>DustBin</IconTxtDesktop>
       </IconDustBin>
@@ -236,8 +245,8 @@ function Home() {
             <ContentWindow> 
             <TwitchEmbed id="twitch-embed">
               <iframe title="livetwitch" 
-                // src="https://player.twitch.tv/?channel=otplol_&parent=timews.github.io" 
-                src="https://player.twitch.tv/?channel=tws_walk&parent=localhost" 
+                src="https://player.twitch.tv/?channel=otplol_&parent=timews.github.io" 
+                // src="https://player.twitch.tv/?channel=tws_walk&parent=localhost" 
                 frameBorder="0" allowFullScreen={true} scrolling="no" 
                 height="100%" width="100%">
               </iframe>
@@ -257,8 +266,8 @@ function Home() {
               <div id="twitch-embed-chat" style={{height:"100%", width:"100%"}}>
                 <iframe title="chattwitch"
                   id="chat_embed"
-                  // src="https://www.twitch.tv/embed/otplol_/chat?parent=timews.github.io&darkpopout"
-                  src="https://www.twitch.tv/embed/tws_walk/chat?parent=localhost&darkpopout"
+                  src="https://www.twitch.tv/embed/otplol_/chat?parent=timews.github.io&darkpopout"
+                  // src="https://www.twitch.tv/embed/tws_walk/chat?parent=localhost&darkpopout"
                   height="94%"
                   width="99.2%">
                 </iframe>
@@ -415,11 +424,27 @@ function Home() {
       }
       {show.news? 
         <Draggable handle="strong" bounds="body" onStart={handleIndex}>
-          <Window id={"news"} style={{zIndex:styleIndex.news}} onClick={handleIndex}>
+          <Window id={"news"} style={{zIndex:styleIndex.news, top:"30vh", left:"10vw"}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShow({...show, news:false})}/>
             <strong><HeaderWindow>NEWS</HeaderWindow></strong>
             <ContentWindow>
-              NEWS, LOGS AND ROADMAP
+              <div style={{color:"white"}}>
+                <span>Coming Soon in v1.1</span>
+                <ul>
+                  <li>Clean Music features</li>
+                  <li>Pomodoro update</li>
+                </ul>
+                <span>Coming in v1.2</span>
+                <ul>
+                  <li>Weather update</li>
+                  <li>Session Login</li>
+                  <li>Theme</li>
+                </ul>
+                <span>This is not an exhaustive list, follow us on SNS for more!</span><br/>
+                <span>Right click, sound effects, store... many things are coming on the website</span><br/>
+                <span>Join the Discord to contribute :)</span><br/>
+                <span>TIME WELL SPENT</span>
+              </div>
             </ContentWindow>
           </Window>
         </Draggable> 
@@ -427,12 +452,13 @@ function Home() {
       }
       {show.newsletter? 
         <Draggable handle="strong" bounds="body" onStart={handleIndex}>
-          <Window id={"newsletter"} style={{zIndex:styleIndex.newsletter}} onClick={handleIndex}>
+          <Window id={"newsletter"} style={{zIndex:styleIndex.newsletter, height:"100px", top:"15vh", left:"15vw"}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShow({...show, newsletter:false})}/>
             <strong><HeaderWindow>NEWSLETTER</HeaderWindow></strong>
             <ContentWindow>
-              let us your email to be update about our news, 
-              our website updates or our drops on the store
+              <span style={{color:"white"}}>Nothing here... check the news and our SNS
+               to get updates from us!<br/>
+               We will ask you your email when the login session would be updated :)</span>
             </ContentWindow>
           </Window>
         </Draggable> 
@@ -443,7 +469,13 @@ function Home() {
           <Window id={"contact"} style={{zIndex:styleIndex.contact}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShowOption({...showOption, contact:false})}/>
             <strong><HeaderWindow>CONTACT US</HeaderWindow></strong>
-            <ContentWindow>
+            <ContentWindow style={{color:'white'}}>
+              <span>We don't believe in boring emails discussion, join our discord or DM us on SNS :)</span><br/>
+              <span>We don't believe in boring emails discussion, join our discord or DM us on SNS :)</span><br/>
+              <span>We don't believe in boring emails discussion, join our discord or DM us on SNS :)</span><br/>
+              <span>We don't believe in boring emails discussion, join our discord or DM us on SNS :)</span><br/>
+              <span>We don't believe in boring emails discussion, join our discord or DM us on SNS :)</span><br/>
+              <span>We don't believe in boring emails discussion, join our discord or DM us on SNS :)</span><br/>
             </ContentWindow>
           </Window>
         </Draggable> 
@@ -461,8 +493,7 @@ function Home() {
               Listen to our music and the playlist we picked for you.
               Join our community on Discord, follow us on Instagram, 
               check our store and be aware of what is coming up 
-              here and later through the news 
-              and our newsletter!<br/>
+              here and later through the news and SNS!<br/>
               Read our Privacy Policy..
               </ContentWindowAbout>
             </ContentWindow>
@@ -474,10 +505,11 @@ function Home() {
         <Draggable handle="strong" bounds="body" onStart={handleIndex}>
           <WindowInsta id={"insta"} style={{zIndex:styleIndex.insta}} onClick={handleIndex}>
             <CloseIconWindow onClick={()=>setShow({...show, insta:false})}/>
-            <strong><HeaderWindow>INSTA</HeaderWindow></strong>
+            <strong><HeaderWindow>INSTAGRAM</HeaderWindow></strong>
             <ContentWindow>
-              {/* <iframe title="instagram" width="320" height="440" src="https://www.instagram.com/p/Cah9ERBPu7Y/embed" frameborder="0"></iframe> */}
-              <iframe title="instagram" width="320" height="440" src="" frameborder="0"></iframe>
+              {/* <iframe title="instagram" width="320" height="440" src="" frameborder="0"></iframe> */}
+              <img style={{imageRendering:"pixelated"}} src={instaQR} alt=''/>
+              <button style={{width:"100%", fontSize:"9px"}} onClick={tabInsta}>CLICK TO OPEN INSTAGRAM IN A NEW TAB</button>
             </ContentWindow>
           </WindowInsta>
         </Draggable> 

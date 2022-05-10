@@ -6,16 +6,16 @@ import knob from '../../assets/doorKnob.png'
 import soap from '../../assets/soapCycle.gif'
 import startSoap from '../../assets/soapStart.gif'
 
-import newSession from '../../assets/newSession.png'
-import playIconPressed from '../../assets/playIconPressed.png'
+import newSession from '../../assets/repeat.svg'
+import playPause from '../../assets/play-pause.svg'
 
 import alarm from '../../assets/audios/dondadamixtape.mp3'
 
 const PomodoroWindow = styled.div`
-    height:100%;
+    height:395px;
     display: grid; 
     grid-template-columns: 1.3fr 0.5fr 1.3fr;
-    grid-template-rows: 0.6fr 2fr 0.4fr;
+    grid-template-rows: 0.58fr 2fr 0.52fr;
     gap: 0px 0px; 
     grid-template-areas: 
       "screen options controls"
@@ -64,7 +64,6 @@ const PlayPauseNewSession = styled.div`
     height:100%;
     display:flex;
     align-items:center;
-    column-gap:10px;
     justify-content:center;
     margin-left: -5px;
 `
@@ -79,6 +78,9 @@ const Btn = styled.button`
     outline: inherit;
     width: 50px;
     height: 50px;
+    &:first-child{
+        margin-right:10px;
+    }
 `
 
 const OuterCircle = styled.div`
@@ -98,8 +100,8 @@ const InnerCirclePressed = styled.div`
     border-radius: 50%;
     height: 36px;
     width: 36px;
-    top: 55%;
-    left: 54%;
+    top: 24px;
+    left: 24px;
     margin: -21px 0px 0px -21px;
     border: solid;
     border-width:thin;
@@ -117,8 +119,8 @@ const InnerCircle = styled.div`
     border-radius:50%;
     height: 36px;
     width: 36px;
-    top: 55%;
-    left: 54%;
+    top: 24px;
+    left: 24px;
     margin: -21px 0px 0px -21px;
     border: solid;
     border-width:thin;
@@ -153,9 +155,6 @@ const DoorBorder = styled.div`
 //BOTTOM WM
 const Pannel = styled.div`
     grid-area:pannel;
-    display:flex;
-    align-self: flex-end;
-    justify-content:right;
 `
 
 const TrapDoor = styled.div`
@@ -165,7 +164,8 @@ const TrapDoor = styled.div`
     margin-right: 10px;
     border-radius: 10px;
     border:solid;
-    margin-bottom: 1px;
+    margin-left: 180px;
+    margin-top: 10px;
 `
 
 const Lock = styled.div`
@@ -259,10 +259,10 @@ const Pomodoro = () => {
                     <OuterCircle>
                         {press?
                             <InnerCirclePressed>
-                                <img style={{marginLeft:"2px", marginTop:"1px", height:"80%"}} src={newSession} alt='iconBtn'/>
+                                <img style={{marginLeft:"-4px", marginTop:"-1px", height:"41px", transform:"rotate(90deg)", filter:"invert(69%) sepia(26%) saturate(382%) hue-rotate(258deg) brightness(86%) contrast(91%)"}} src={newSession} alt='iconBtn'/>
                             </InnerCirclePressed>:
                             <InnerCircle>
-                                <img style={{marginLeft:"2px", marginTop:"-1px", height:"80%"}} src={newSession} alt='iconBtn'/>
+                                <img style={{marginLeft:"-4px", marginTop:"-3px", height:"41px", transform:"rotate(90deg)", filter:"invert(69%) sepia(26%) saturate(382%) hue-rotate(258deg) brightness(86%) contrast(91%)"}} src={newSession} alt='iconBtn'/>
                             </InnerCircle>
                         }
                     </OuterCircle>
@@ -271,10 +271,10 @@ const Pomodoro = () => {
                     <OuterCircle>
                         {pause?
                             <InnerCircle>
-                                <img style={{marginLeft:"4px", marginTop:"-1px", height:"100%"}} src={playIconPressed} alt='iconBtn'/>
+                                <img style={{marginTop:"4px", height:"32px", filter:"invert(69%) sepia(26%) saturate(382%) hue-rotate(258deg) brightness(86%) contrast(91%)"}} src={playPause} alt='iconBtn'/>
                             </InnerCircle>:
                             <InnerCirclePressed>
-                                <img style={{marginLeft:"4px", marginTop:"1px", height:"100%"}} src={playIconPressed} alt='iconBtn'/>
+                                <img style={{marginTop:"6px", height:"32px", filter:"invert(69%) sepia(26%) saturate(382%) hue-rotate(258deg) brightness(86%) contrast(91%)"}} src={playPause} alt='iconBtn'/>
                             </InnerCirclePressed>
                         }
                     </OuterCircle>
